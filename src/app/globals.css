@@ -14,13 +14,14 @@
 }
 
 :root {
-  --background: #020617; /* slate-950 */
-  --foreground: #f8fafc; /* slate-50 */
-  --card: #0f172a; /* slate-900 */
-  --card-foreground: #f8fafc;
+  /* Enterprise Zinc Palette */
+  --background: #040405; /* Super deep zinc/black */
+  --foreground: #f4f4f5; /* zinc-100 */
+  --card: #09090b; /* zinc-950 */
+  --card-foreground: #f4f4f5;
   --primary: #facc15; /* yellow-400 */
-  --primary-foreground: #020617; /* slate-950 */
-  --border: #1e293b; /* slate-800 */
+  --primary-foreground: #040405; 
+  --border: rgba(255, 255, 255, 0.08); /* micro-border */
 }
 
 body {
@@ -38,5 +39,18 @@ body {
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  
+  /* Glass panels for Enterprise look */
+  .glass-panel {
+    @apply bg-zinc-950/40 backdrop-blur-md border border-white/[0.05] shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)];
+  }
+  
+  .glass-card {
+    @apply bg-zinc-900/40 backdrop-blur-sm border border-white/[0.04] hover:border-white/[0.1] transition-colors shadow-sm hover:shadow-lg;
+  }
+  
+  .micro-border {
+    @apply border border-white/[0.06];
   }
 }

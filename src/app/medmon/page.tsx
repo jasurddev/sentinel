@@ -128,24 +128,24 @@ export default function MedmonPage() {
       {/* ── Header ──────────────────────────────────────────────── */}
       <div className="flex justify-between items-end shrink-0">
         <div>
-          <h1 className="text-2xl font-bold font-mono tracking-tight text-slate-100 flex items-center gap-3">
-            <Radio className="w-7 h-7 text-emerald-500" /> SEMANTIS_MEDMON
+          <h1 className="text-2xl font-bold font-sans tracking-tight text-zinc-100 flex items-center gap-3">
+            <Radio className="w-7 h-7 text-emerald-500 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" /> SEMANTIS_MEDMON
           </h1>
-          <p className="text-slate-400 mt-1">
+          <p className="text-zinc-500 font-sans mt-1 text-sm">
             Real-time media monitoring, sentiment analysis, and Social Network Analysis (SNA).
           </p>
         </div>
 
         <div className="flex gap-3">
-          <button onClick={handleDownloadCSV} className="bg-emerald-950/50 hover:bg-emerald-900 text-xs font-mono text-emerald-400 border border-emerald-800 px-3 py-2 rounded-md transition-colors flex items-center gap-2 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
-            <Download className="w-4 h-4" /> EXPORT_CSV
+          <button onClick={handleDownloadCSV} className="bg-zinc-950/50 hover:bg-zinc-900 text-xs font-mono text-emerald-500 border border-emerald-900/30 hover:border-emerald-500/50 px-3 py-1.5 rounded-sm transition-colors flex items-center gap-2 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+            <Download className="w-3 h-3" /> EXPORT_CSV
           </button>
-          <button onClick={() => setShowTelemetry(true)} className="bg-slate-900/50 hover:bg-slate-800 text-xs font-mono text-slate-400 hover:text-emerald-400 border border-slate-700 px-3 py-2 rounded-md transition-colors flex items-center gap-2">
-            <Activity className="w-4 h-4 text-emerald-400" /> SYS_DIAGNOSTICS
+          <button onClick={() => setShowTelemetry(true)} className="bg-zinc-950/50 hover:bg-zinc-900 text-xs font-mono text-zinc-400 hover:text-emerald-400 border border-white/[0.05] px-3 py-1.5 rounded-sm transition-colors flex items-center gap-2 shadow-sm">
+            <Activity className="w-3 h-3 text-emerald-500" /> SYS_DIAGNOSTICS
           </button>
-          <div className="bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-md flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-emerald-400 font-mono text-sm font-bold tracking-widest">
+          <div className="bg-emerald-500/5 border border-emerald-500/20 px-3 py-1.5 rounded-sm flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+            <span className="text-emerald-400 font-sans text-[10px] font-bold tracking-widest uppercase">
               LIVE
             </span>
           </div>
@@ -155,39 +155,39 @@ export default function MedmonPage() {
       {/* ── Stats Row ───────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 shrink-0">
         {/* Mentions Tracked */}
-        <div className="bg-card border border-border p-4 rounded-xl flex items-center gap-4">
-          <div className="p-3 bg-emerald-500/10 rounded-lg text-emerald-500">
-            <Activity className="w-6 h-6" />
+        <div className="glass-card p-4 rounded-md flex items-center gap-4">
+          <div className="p-3 bg-emerald-500/5 rounded-sm micro-border">
+            <Activity className="w-5 h-5 text-emerald-500" />
           </div>
           <div>
-            <p className="text-xs font-mono text-slate-500">MENTIONS_TRACKED</p>
-            <p className="text-2xl font-bold font-mono text-slate-100 mt-1">
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">MENTIONS_TRACKED</p>
+            <p className="text-2xl font-bold font-mono text-zinc-200 mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">
               847K
             </p>
           </div>
         </div>
 
         {/* Sentiment Index */}
-        <div className="bg-card border border-border p-4 rounded-xl flex items-center gap-4">
-          <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
-            <TrendingDown className="w-6 h-6" />
+        <div className="glass-card p-4 rounded-md flex items-center gap-4">
+          <div className="p-3 bg-red-500/5 rounded-sm micro-border">
+            <TrendingDown className="w-5 h-5 text-red-500" />
           </div>
           <div>
-            <p className="text-xs font-mono text-slate-500">SENTIMENT_INDEX</p>
-            <p className="text-2xl font-bold font-mono text-red-400 mt-1">
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">SENTIMENT_INDEX</p>
+            <p className="text-2xl font-bold font-mono text-red-500 mt-1 drop-shadow-[0_0_8px_rgba(239,68,68,0.2)]">
               -34.2%
             </p>
           </div>
         </div>
 
         {/* Narratives Detected */}
-        <div className="bg-card border border-border p-4 rounded-xl flex items-center gap-4">
-          <div className="p-3 bg-yellow-500/10 rounded-lg text-yellow-500">
-            <MessageSquare className="w-6 h-6" />
+        <div className="glass-card p-4 rounded-md flex items-center gap-4">
+          <div className="p-3 bg-yellow-500/5 rounded-sm micro-border">
+            <MessageSquare className="w-5 h-5 text-yellow-500" />
           </div>
           <div>
-            <p className="text-xs font-mono text-slate-500">NARRATIVES_DETECTED</p>
-            <p className="text-2xl font-bold font-mono text-slate-100 mt-1">
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">NARRATIVES_DETECTED</p>
+            <p className="text-2xl font-bold font-mono text-zinc-200 mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">
               12
             </p>
           </div>
@@ -197,37 +197,37 @@ export default function MedmonPage() {
       {/* ── Main 2-Col Grid ─────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
         {/* ── LEFT: Narrative Tracker ────────────────────────────── */}
-        <div className="lg:col-span-2 bg-card border border-border rounded-xl flex flex-col overflow-hidden">
-          <div className="p-4 border-b border-border bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-primary" /> NARRATIVE_TRACKER
+        <div className="lg:col-span-2 glass-card rounded-md flex flex-col overflow-hidden">
+          <div className="p-4 border-b border-white/[0.05] bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans tracking-wide text-sm flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-emerald-500" /> NARRATIVE TRACKER
             </h2>
           </div>
 
           <div className="flex-1 overflow-auto no-scrollbar p-0">
             <table className="w-full text-left border-collapse">
-              <thead className="bg-slate-900 sticky top-0 z-10">
-                <tr>
-                  <th className="p-4 text-xs font-mono text-slate-500 border-b border-border">ID</th>
-                  <th className="p-4 text-xs font-mono text-slate-500 border-b border-border">NARRATIVE</th>
-                  <th className="p-4 text-xs font-mono text-slate-500 border-b border-border">PLATFORMS</th>
-                  <th className="p-4 text-xs font-mono text-slate-500 border-b border-border">SENTIMENT</th>
-                  <th className="p-4 text-xs font-mono text-slate-500 border-b border-border text-right">VOLUME</th>
-                  <th className="p-4 text-xs font-mono text-slate-500 border-b border-border text-right">TREND</th>
+              <thead className="bg-black/40 sticky top-0 z-10 backdrop-blur-md">
+                <tr className="text-[10px] font-sans font-semibold tracking-widest uppercase text-zinc-500">
+                  <th className="p-4 border-b border-white/[0.05]">ID</th>
+                  <th className="p-4 border-b border-white/[0.05]">NARRATIVE</th>
+                  <th className="p-4 border-b border-white/[0.05]">PLATFORMS</th>
+                  <th className="p-4 border-b border-white/[0.05]">SENTIMENT</th>
+                  <th className="p-4 border-b border-white/[0.05] text-right">VOLUME</th>
+                  <th className="p-4 border-b border-white/[0.05] text-right">TREND</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <tbody className="divide-y divide-white/[0.02]">
                 {narratives.map((n) => {
                   const barWidth = Math.abs(n.sentiment)
                   return (
                     <tr
                       key={n.id}
-                      className="hover:bg-slate-800/30 transition-colors group cursor-pointer"
+                      className="hover:bg-white/[0.02] transition-colors group cursor-pointer"
                     >
-                      <td className="p-4 font-mono text-xs text-slate-400">
+                      <td className="p-4 font-mono text-[11px] text-zinc-400">
                         {n.id}
                       </td>
-                      <td className="p-4 text-sm font-medium text-slate-200 group-hover:text-primary transition-colors">
+                      <td className="p-4 text-sm font-sans font-medium text-zinc-200 group-hover:text-emerald-500 transition-colors">
                         {n.name}
                       </td>
                       <td className="p-4">
@@ -235,7 +235,7 @@ export default function MedmonPage() {
                           {n.platforms.map((p) => (
                             <span
                               key={p}
-                              className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700"
+                              className="text-[9px] font-sans font-semibold tracking-widest px-2 py-0.5 rounded-sm bg-black/40 text-zinc-400 border border-white/[0.05] uppercase"
                             >
                               {p}
                             </span>
@@ -243,19 +243,19 @@ export default function MedmonPage() {
                         </div>
                       </td>
                       <td className="p-4 min-w-[160px]">
-                        <div className="flex items-center gap-2">
-                          <span className={`text-xs font-mono w-10 text-right ${sentimentTextColor(n.sentiment)}`}>
+                        <div className="flex items-center gap-3">
+                          <span className={`text-[11px] font-mono w-10 text-right ${sentimentTextColor(n.sentiment)}`}>
                             {n.sentiment > 0 ? '+' : ''}{n.sentiment}%
                           </span>
-                          <div className="flex-1 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                          <div className="flex-1 bg-zinc-950 border border-white/[0.03] h-1.5 rounded-sm overflow-hidden">
                             <div
-                              className={`h-full rounded-full transition-all duration-1000 ease-out ${sentimentColor(n.sentiment)} ${sentimentGlow(n.sentiment)}`}
+                              className={`h-full rounded-sm transition-all duration-1000 ease-out ${sentimentColor(n.sentiment)} ${sentimentGlow(n.sentiment)}`}
                               style={{ width: mounted ? `${barWidth}%` : '0%' }}
                             />
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 text-sm font-mono text-slate-300 text-right">
+                      <td className="p-4 text-[11px] font-mono text-zinc-300 text-right">
                         {n.volume}
                       </td>
                       <td className="p-4 text-right">
@@ -272,18 +272,18 @@ export default function MedmonPage() {
         {/* ── RIGHT: AI Synthesis + Top Influencers ──────────────── */}
         <div className="flex flex-col gap-6 min-h-0">
           {/* AI Synthesis */}
-          <div className="bg-card border border-border rounded-xl p-5 border-l-2 border-l-emerald-500 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-3 opacity-[0.06]">
-              <Brain className="w-28 h-28 text-emerald-400" />
+          <div className="glass-card rounded-md p-5 border-l-2 border-l-emerald-500 relative overflow-hidden bg-emerald-950/5">
+            <div className="absolute top-0 right-0 p-3 opacity-[0.03]">
+              <Brain className="w-28 h-28 text-emerald-500" />
             </div>
-            <h3 className="font-mono text-slate-300 font-bold mb-3 flex items-center gap-2 relative z-10">
-              <Sparkles className="w-4 h-4 text-emerald-400" /> AI_SYNTHESIS
+            <h3 className="font-sans font-semibold tracking-wide text-zinc-200 text-sm mb-3 flex items-center gap-2 relative z-10">
+              <Sparkles className="w-4 h-4 text-emerald-500" /> AI SYNTHESIS
             </h3>
-            <p className="text-sm text-slate-400 leading-relaxed relative z-10">
+            <p className="text-xs text-zinc-400 leading-relaxed font-sans relative z-10">
               Detected coordinated narrative manipulation targeting MBG policy.{' '}
               <span className="text-red-400 font-medium">3 bot clusters</span>{' '}
               identified originating from{' '}
-              <span className="text-slate-200 font-mono text-xs">JKT_Pusat</span>{' '}
+              <span className="text-zinc-200 font-mono text-[10px]">JKT_Pusat</span>{' '}
               subnet. Sentiment trending{' '}
               <span className="text-red-400 font-medium">67% hostile</span>{' '}
               across Twitter and TikTok. Recommended action:{' '}
@@ -294,35 +294,35 @@ export default function MedmonPage() {
           </div>
 
           {/* Top Influencers */}
-          <div className="bg-card border border-border rounded-xl flex flex-col overflow-hidden flex-1 min-h-0">
-            <div className="p-4 border-b border-border bg-slate-900/50">
-              <h3 className="font-mono text-slate-300 font-bold flex items-center gap-2">
-                <Users className="w-4 h-4 text-cyan-400" /> TOP_INFLUENCERS
+          <div className="glass-card rounded-md flex flex-col overflow-hidden flex-1 min-h-0">
+            <div className="p-4 border-b border-white/[0.05] bg-black/20">
+              <h3 className="font-sans font-semibold tracking-wide text-zinc-200 text-sm flex items-center gap-2">
+                <Users className="w-4 h-4 text-cyan-500" /> TOP INFLUENCERS
               </h3>
             </div>
-            <div className="flex-1 overflow-auto no-scrollbar p-3 space-y-3">
+            <div className="flex-1 overflow-auto no-scrollbar p-3 space-y-2">
               {influencers.map((inf) => (
                 <div
                   key={inf.handle}
-                  className="bg-slate-900/60 border border-slate-800 rounded-lg p-3 hover:bg-slate-800/50 transition-colors"
+                  className="bg-black/40 border border-white/[0.03] rounded-sm p-3 hover:border-white/[0.1] transition-colors"
                 >
                   <div className="flex justify-between items-start">
-                    <p className="text-sm font-mono text-slate-200 font-medium">
+                    <p className="text-xs font-mono text-zinc-200 font-medium">
                       {inf.handle}
                     </p>
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                      className={`text-[9px] font-sans font-semibold tracking-widest px-2 py-0.5 rounded-sm border uppercase ${
                         inf.sentiment === 'Hostile'
-                          ? 'bg-red-500/10 text-red-400 border-red-500/20'
+                          ? 'bg-red-500/10 text-red-500 border-red-500/20'
                           : inf.sentiment === 'Neutral'
-                            ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
-                            : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                            ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
+                            : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
                       }`}
                     >
-                      {inf.sentiment.toUpperCase()}
+                      {inf.sentiment}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1 font-mono">
+                  <p className="text-[10px] text-zinc-500 mt-2 font-sans uppercase tracking-widest">
                     Reach:{' '}
                     <span className={influencerColor(inf.sentiment)}>
                       {inf.reach}

@@ -69,64 +69,64 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-16 lg:w-64 border-r border-border bg-card flex flex-col h-full transition-all duration-300 z-10 shrink-0">
-      {/* Logo */}
-      <div className="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-border">
-        <Shield className="w-6 h-6 text-primary shrink-0" />
-        <span className="hidden lg:block ml-3 font-mono font-bold tracking-wider text-sm text-slate-100">
-          SENTINEL_C2
-        </span>
+    <aside className="w-64 h-full border-r border-white/[0.05] bg-[#040405]/80 backdrop-blur-xl flex flex-col shrink-0">
+      {/* Logo Area */}
+      <div className="h-16 flex items-center px-6 border-b border-white/[0.05]">
+        <Shield className="w-6 h-6 text-yellow-500 mr-3 shrink-0" />
+        <span className="font-sans font-bold tracking-widest text-sm text-zinc-100">SENTINEL_C2</span>
       </div>
 
-      {/* Navigation Sections */}
-      <nav className="flex-1 py-2 flex flex-col overflow-y-auto no-scrollbar">
-        {navSections.map((section) => (
-          <div key={section.title}>
-            {/* Section Header */}
-            <div className="hidden lg:block mt-6 mb-2 px-4">
-              <span className="text-[10px] font-mono font-semibold text-slate-600 uppercase tracking-widest">
-                {section.title}
-              </span>
-            </div>
-
-            {/* Section Divider for collapsed sidebar */}
-            <div className="lg:hidden mt-4 mb-2 mx-3 border-t border-slate-800" />
-
-            {/* Nav Items */}
-            <div className="flex flex-col gap-1 px-2">
-              {section.items.map((item) => {
+      {/* Navigation */}
+      <nav className="flex-1 overflow-y-auto py-6 no-scrollbar">
+        {navSections.map((group, idx) => (
+          <div key={idx} className="mb-6">
+            <h3 className="px-6 text-[10px] font-sans font-semibold text-zinc-500 uppercase tracking-[0.2em] mb-3">
+              {group.title}
+            </h3>
+            <ul className="space-y-1">
+              {group.items.map((item) => {
                 const isActive = pathname === item.href
                 return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center p-3 lg:px-4 rounded-md transition-all duration-200 group active:scale-95",
-                      isActive
-                        ? "bg-slate-800 text-primary font-medium"
-                        : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-50"
-                    )}
-                    title={item.label}
-                  >
-                    <item.icon className="w-5 h-5 flex-shrink-0" />
-                    <span className="hidden lg:block ml-3 text-sm">{item.label}</span>
-                  </Link>
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "flex items-center px-6 py-2 text-sm font-sans transition-all group relative",
+                        isActive
+                          ? "text-yellow-400 bg-white/[0.03]"
+                          : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.02]"
+                      )}
+                    >
+                      {isActive && (
+                        <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-yellow-500 shadow-[0_0_10px_#facc15]" />
+                      )}
+                      <item.icon
+                        className={cn(
+                          "w-4 h-4 mr-3 transition-colors shrink-0",
+                          isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"
+                        )}
+                      />
+                      {item.label}
+                    </Link>
+                  </li>
                 )
               })}
-            </div>
+            </ul>
           </div>
         ))}
       </nav>
 
-      {/* Settings Footer */}
-      <div className="p-4 border-t border-border flex justify-center lg:justify-start">
-        <button
-          className="flex items-center text-slate-400 hover:text-slate-50 transition-colors active:scale-95 w-full p-2 lg:p-0 rounded-md lg:rounded-none hover:bg-slate-800 lg:hover:bg-transparent"
-          aria-label="Settings"
-        >
-          <Settings className="w-5 h-5 flex-shrink-0" />
-          <span className="hidden lg:block ml-3 text-sm font-medium">Settings</span>
-        </button>
+      {/* User Area */}
+      <div className="p-4 border-t border-white/[0.05] bg-white/[0.01]">
+        <div className="flex items-center gap-3 px-2">
+          <div className="w-8 h-8 rounded-sm bg-zinc-800 flex items-center justify-center shrink-0">
+            <span className="font-mono text-xs font-bold text-zinc-300">OP</span>
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <p className="text-sm font-sans font-medium text-zinc-200 truncate">Operator 01</p>
+            <p className="text-[10px] font-mono text-zinc-500 truncate">Clearance: TOP SECRET</p>
+          </div>
+        </div>
       </div>
     </aside>
   )

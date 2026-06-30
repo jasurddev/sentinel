@@ -73,26 +73,27 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6">
       {/* Page Header */}
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold font-mono tracking-tight text-slate-100 flex items-center gap-3">
-            <Shield className="w-7 h-7 text-yellow-400" /> SENTINEL_COMMAND_CENTER
+          <h1 className="text-2xl font-bold font-sans tracking-tight text-zinc-100 flex items-center gap-3">
+            <Shield className="w-7 h-7 text-yellow-500 drop-shadow-[0_0_10px_rgba(250,204,21,0.3)]" /> 
+            SENTINEL COMMAND CENTER
           </h1>
-          <p className="text-slate-400 mt-1 text-sm">Unified C2 Platform — All subsystems operational.</p>
+          <p className="text-zinc-500 mt-1 text-sm font-sans">Unified C2 Platform — All subsystems operational.</p>
         </div>
         <div className="flex gap-8">
           <div className="text-right">
-            <p className="text-[10px] font-mono text-slate-500 mb-1">ACTIVE_PIPELINES</p>
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 mb-1">ACTIVE_PIPELINES</p>
             <p className="text-2xl font-bold font-mono text-cyan-400 flex items-center gap-2 justify-end">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
               {activeFeeds}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] font-mono text-slate-500 mb-1">TOTAL_INGESTED</p>
-            <p className="text-2xl font-bold font-mono text-emerald-400 transition-all duration-300">
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 mb-1">TOTAL_INGESTED</p>
+            <p className="text-2xl font-bold font-mono text-emerald-400 transition-all duration-300 drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
               {ingestedCount.toLocaleString()}
             </p>
           </div>
@@ -100,77 +101,77 @@ export default function Home() {
       </div>
 
       {/* 4 PILLARS STATUS */}
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
-        <Link href="/medmon" className="bg-card border border-border rounded-xl p-4 group hover:border-emerald-500/30 transition-all active:scale-[0.98]">
-          <div className="flex items-center justify-between mb-3">
-            <div className="p-2 bg-emerald-500/10 rounded-lg"><Radio className="w-5 h-5 text-emerald-500" /></div>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">{pillarStatus.semantis.status}</span>
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+        <Link href="/medmon" className="glass-card rounded-md p-5 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-2 bg-emerald-500/5 rounded-md micro-border"><Radio className="w-5 h-5 text-emerald-500" /></div>
+            <span className="text-[9px] font-sans font-semibold tracking-widest text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-sm micro-border">{pillarStatus.semantis.status}</span>
           </div>
-          <h3 className="font-mono text-sm font-bold text-slate-200 group-hover:text-emerald-400 transition-colors">SEMANTIS</h3>
-          <p className="text-[11px] text-slate-500 mt-1">Media Monitoring & SNA</p>
-          <div className="mt-3 w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+          <h3 className="font-sans text-sm font-bold text-zinc-200 group-hover:text-emerald-400 transition-colors">SEMANTIS</h3>
+          <p className="text-[11px] font-sans text-zinc-500 mt-1">Media Monitoring & SNA</p>
+          <div className="mt-4 w-full bg-zinc-900 h-0.5 rounded-full overflow-hidden">
             <div className="bg-emerald-500 h-full transition-all duration-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" style={{ width: `${pillarStatus.semantis.health}%` }}></div>
           </div>
-          <p className="text-[10px] font-mono text-slate-500 mt-1">Health: {pillarStatus.semantis.health}%</p>
+          <p className="text-[10px] font-mono text-zinc-500 mt-2">Health: {pillarStatus.semantis.health}%</p>
         </Link>
 
-        <Link href="/netra" className="bg-card border border-border rounded-xl p-4 group hover:border-cyan-500/30 transition-all active:scale-[0.98]">
-          <div className="flex items-center justify-between mb-3">
-            <div className="p-2 bg-cyan-500/10 rounded-lg"><ScanFace className="w-5 h-5 text-cyan-400" /></div>
-            <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">{pillarStatus.netra.status}</span>
+        <Link href="/netra" className="glass-card rounded-md p-5 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-2 bg-cyan-500/5 rounded-md micro-border"><ScanFace className="w-5 h-5 text-cyan-400" /></div>
+            <span className="text-[9px] font-sans font-semibold tracking-widest text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded-sm micro-border">{pillarStatus.netra.status}</span>
           </div>
-          <h3 className="font-mono text-sm font-bold text-slate-200 group-hover:text-cyan-400 transition-colors">NETRA</h3>
-          <p className="text-[11px] text-slate-500 mt-1">Face Recognition & Profiling</p>
-          <div className="mt-3 w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+          <h3 className="font-sans text-sm font-bold text-zinc-200 group-hover:text-cyan-400 transition-colors">NETRA</h3>
+          <p className="text-[11px] font-sans text-zinc-500 mt-1">Face Recognition & Profiling</p>
+          <div className="mt-4 w-full bg-zinc-900 h-0.5 rounded-full overflow-hidden">
             <div className="bg-cyan-500 h-full transition-all duration-500 shadow-[0_0_8px_rgba(6,182,212,0.5)]" style={{ width: `${pillarStatus.netra.health}%` }}></div>
           </div>
-          <p className="text-[10px] font-mono text-slate-500 mt-1">Health: {pillarStatus.netra.health}%</p>
+          <p className="text-[10px] font-mono text-zinc-500 mt-2">Health: {pillarStatus.netra.health}%</p>
         </Link>
 
-        <Link href="/buzzer" className="bg-card border border-border rounded-xl p-4 group hover:border-yellow-500/30 transition-all active:scale-[0.98]">
-          <div className="flex items-center justify-between mb-3">
-            <div className="p-2 bg-yellow-500/10 rounded-lg"><Megaphone className="w-5 h-5 text-yellow-400" /></div>
-            <span className="text-[10px] font-mono text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">{pillarStatus.buzzer.status}</span>
+        <Link href="/buzzer" className="glass-card rounded-md p-5 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-2 bg-yellow-500/5 rounded-md micro-border"><Megaphone className="w-5 h-5 text-yellow-500" /></div>
+            <span className="text-[9px] font-sans font-semibold tracking-widest text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded-sm micro-border">{pillarStatus.buzzer.status}</span>
           </div>
-          <h3 className="font-mono text-sm font-bold text-slate-200 group-hover:text-yellow-400 transition-colors">BUZZER OPS</h3>
-          <p className="text-[11px] text-slate-500 mt-1">Information Warfare</p>
-          <div className="mt-3 w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+          <h3 className="font-sans text-sm font-bold text-zinc-200 group-hover:text-yellow-500 transition-colors">BUZZER OPS</h3>
+          <p className="text-[11px] font-sans text-zinc-500 mt-1">Information Warfare</p>
+          <div className="mt-4 w-full bg-zinc-900 h-0.5 rounded-full overflow-hidden">
             <div className="bg-yellow-500 h-full transition-all duration-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]" style={{ width: `${pillarStatus.buzzer.health}%` }}></div>
           </div>
-          <p className="text-[10px] font-mono text-slate-500 mt-1">Health: {pillarStatus.buzzer.health}%</p>
+          <p className="text-[10px] font-mono text-zinc-500 mt-2">Health: {pillarStatus.buzzer.health}%</p>
         </Link>
 
-        <Link href="/cellebrite" className="bg-card border border-border rounded-xl p-4 group hover:border-purple-500/30 transition-all active:scale-[0.98]">
-          <div className="flex items-center justify-between mb-3">
-            <div className="p-2 bg-purple-500/10 rounded-lg"><Smartphone className="w-5 h-5 text-purple-400" /></div>
-            <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">{pillarStatus.cellebrite.status}</span>
+        <Link href="/cellebrite" className="glass-card rounded-md p-5 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="p-2 bg-purple-500/5 rounded-md micro-border"><Smartphone className="w-5 h-5 text-purple-400" /></div>
+            <span className="text-[9px] font-sans font-semibold tracking-widest text-zinc-400 bg-zinc-800 px-2 py-1 rounded-sm micro-border">{pillarStatus.cellebrite.status}</span>
           </div>
-          <h3 className="font-mono text-sm font-bold text-slate-200 group-hover:text-purple-400 transition-colors">CELLEBRITE</h3>
-          <p className="text-[11px] text-slate-500 mt-1">Digital Forensics</p>
-          <div className="mt-3 w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+          <h3 className="font-sans text-sm font-bold text-zinc-200 group-hover:text-purple-400 transition-colors">CELLEBRITE</h3>
+          <p className="text-[11px] font-sans text-zinc-500 mt-1">Digital Forensics</p>
+          <div className="mt-4 w-full bg-zinc-900 h-0.5 rounded-full overflow-hidden">
             <div className="bg-purple-500 h-full transition-all duration-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]" style={{ width: `${pillarStatus.cellebrite.health}%` }}></div>
           </div>
-          <p className="text-[10px] font-mono text-slate-500 mt-1">Health: {pillarStatus.cellebrite.health}%</p>
+          <p className="text-[10px] font-mono text-zinc-500 mt-2">Health: {pillarStatus.cellebrite.health}%</p>
         </Link>
       </div>
 
       {/* Live Log Terminal */}
-      <div className="bg-[#020617] border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 h-32 overflow-hidden relative shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
-        <div className="absolute top-0 left-0 w-1 h-full bg-yellow-400/50 shadow-[0_0_10px_rgba(250,204,21,0.5)]"></div>
-        <div className="absolute top-2 right-4 text-[10px] text-slate-500 font-mono flex items-center gap-2">
+      <div className="bg-black/80 border border-white/[0.05] rounded-md p-5 font-mono text-[11px] text-zinc-400 h-36 overflow-hidden relative shadow-[inset_0_0_30px_rgba(0,0,0,0.8)] backdrop-blur-md">
+        <div className="absolute top-0 left-0 w-[2px] h-full bg-yellow-500/50 shadow-[0_0_15px_rgba(250,204,21,0.5)]"></div>
+        <div className="absolute top-3 right-4 text-[9px] text-zinc-600 font-mono tracking-widest flex items-center gap-2">
           <Terminal className="w-3 h-3" /> C2_LIVE_STREAM
         </div>
         <div className="flex flex-col gap-2 justify-end h-full mt-2">
           {liveLogs.map(log => (
-            <div key={log.id} className="flex gap-3 animate-in slide-in-from-bottom-2 fade-in duration-300">
-              <span className="text-slate-500 shrink-0">[{log.time}]</span>
+            <div key={log.id} className="flex gap-4 animate-in slide-in-from-bottom-2 fade-in duration-300">
+              <span className="text-zinc-600 shrink-0">[{log.time}]</span>
               <span className={
                 log.msg.includes("[ALERT]") ? "text-red-400 font-bold" : 
                 log.msg.includes("[SEMANTIS]") ? "text-emerald-400" : 
                 log.msg.includes("[NETRA]") ? "text-cyan-400" :
-                log.msg.includes("[BUZZER]") ? "text-yellow-400" :
+                log.msg.includes("[BUZZER]") ? "text-yellow-500" :
                 log.msg.includes("[CELLEBRITE]") ? "text-purple-400" :
-                "text-slate-300"
+                "text-zinc-300"
               }>
                 {log.msg}
               </span>
@@ -183,12 +184,12 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         
         {/* Link Analysis Preview */}
-        <Link href="/graph" className="xl:col-span-2 row-span-2 bg-card border border-border rounded-xl flex flex-col overflow-hidden group hover:border-slate-700 transition-all h-[350px]">
-          <div className="p-3 border-b border-border flex items-center justify-between bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono text-sm flex items-center gap-2">
-              <GitGraph className="w-4 h-4 text-primary" /> LINK_ANALYSIS
+        <Link href="/graph" className="xl:col-span-2 row-span-2 glass-card rounded-md flex flex-col overflow-hidden h-[380px]">
+          <div className="p-4 border-b border-white/[0.05] flex items-center justify-between bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm flex items-center gap-2">
+              <GitGraph className="w-4 h-4 text-yellow-500" /> LINK ANALYSIS
             </h2>
-            <span className="text-xs text-slate-500 font-mono group-hover:text-primary transition-colors">View Graph →</span>
+            <span className="text-[10px] text-zinc-500 font-sans tracking-widest group-hover:text-yellow-500 transition-colors uppercase">View Graph →</span>
           </div>
           <div className="flex-1 relative">
             <GraphNoSSR isPreview={true} />
@@ -196,12 +197,12 @@ export default function Home() {
         </Link>
 
         {/* GEOINT Map Preview */}
-        <Link href="/map" className="xl:col-span-2 row-span-2 bg-card border border-border rounded-xl flex flex-col overflow-hidden group hover:border-slate-700 transition-all h-[350px]">
-          <div className="p-3 border-b border-border flex items-center justify-between bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono text-sm flex items-center gap-2">
-              <MapIcon className="w-4 h-4 text-cyan-400" /> GEOINT_MAP
+        <Link href="/map" className="xl:col-span-2 row-span-2 glass-card rounded-md flex flex-col overflow-hidden h-[380px]">
+          <div className="p-4 border-b border-white/[0.05] flex items-center justify-between bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm flex items-center gap-2">
+              <MapIcon className="w-4 h-4 text-cyan-400" /> GEOINT MAP
             </h2>
-            <span className="text-xs text-slate-500 font-mono group-hover:text-cyan-400 transition-colors">Open Map →</span>
+            <span className="text-[10px] text-zinc-500 font-sans tracking-widest group-hover:text-cyan-400 transition-colors uppercase">Open Map →</span>
           </div>
           <div className="flex-1 relative">
             <MapNoSSR isPreview={true} />
@@ -209,25 +210,25 @@ export default function Home() {
         </Link>
 
         {/* Threat Intel Preview */}
-        <Link href="/threats" className="xl:col-span-2 bg-card border border-border rounded-xl flex flex-col group hover:border-slate-700 transition-all">
-          <div className="p-3 border-b border-border flex items-center justify-between bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono text-sm flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4 text-red-500" /> THREAT_INTEL
+        <Link href="/threats" className="xl:col-span-2 glass-card rounded-md flex flex-col">
+          <div className="p-4 border-b border-white/[0.05] flex items-center justify-between bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm flex items-center gap-2">
+              <ShieldAlert className="w-4 h-4 text-red-500" /> THREAT INTEL
             </h2>
-            <span className="text-xs text-slate-500 font-mono group-hover:text-red-400 transition-colors">All Threats →</span>
+            <span className="text-[10px] text-zinc-500 font-sans tracking-widest group-hover:text-red-400 transition-colors uppercase">All Threats →</span>
           </div>
-          <div className="p-3 flex-1 overflow-auto no-scrollbar">
+          <div className="p-4 flex-1 overflow-auto no-scrollbar">
             <div className="space-y-2">
               {topThreats.map(t => (
-                <div key={t.id} className="flex justify-between items-center bg-slate-900/50 border border-slate-800 p-3 rounded-lg">
+                <div key={t.id} className="flex justify-between items-center bg-black/40 border border-white/[0.03] p-3 rounded-sm hover:border-white/[0.1] transition-colors">
                   <div>
-                    <p className="font-medium text-sm text-slate-200">{t.actor}</p>
-                    <p className="text-xs text-slate-500 font-mono mt-1 flex items-center gap-1">
-                      {t.time === 'LIVE' && <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>}
+                    <p className="font-medium font-sans text-sm text-zinc-200">{t.actor}</p>
+                    <p className="text-[10px] text-zinc-500 font-mono mt-1 flex items-center gap-1.5">
+                      {t.time === 'LIVE' && <span className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_red]"></span>}
                       {t.time}
                     </p>
                   </div>
-                  <span className={`text-[10px] font-mono px-2 py-1 rounded border ${
+                  <span className={`text-[9px] font-sans font-semibold tracking-widest px-2 py-1 rounded-sm border ${
                         t.level === 'CRITICAL' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 
                         'bg-orange-500/10 text-orange-400 border-orange-500/20'
                   }`}>
@@ -240,26 +241,26 @@ export default function Home() {
         </Link>
 
         {/* Data Feeds Preview */}
-        <Link href="/feeds" className="xl:col-span-2 bg-card border border-border rounded-xl flex flex-col group hover:border-slate-700 transition-all">
-          <div className="p-3 border-b border-border flex items-center justify-between bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono text-sm flex items-center gap-2">
-              <Database className="w-4 h-4 text-emerald-500" /> DATA_FEEDS
+        <Link href="/feeds" className="xl:col-span-2 glass-card rounded-md flex flex-col">
+          <div className="p-4 border-b border-white/[0.05] flex items-center justify-between bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm flex items-center gap-2">
+              <Database className="w-4 h-4 text-emerald-500" /> DATA FEEDS
             </h2>
-            <span className="text-xs text-slate-500 font-mono group-hover:text-emerald-400 transition-colors">Manage →</span>
+            <span className="text-[10px] text-zinc-500 font-sans tracking-widest group-hover:text-emerald-400 transition-colors uppercase">Manage →</span>
           </div>
-          <div className="p-3 flex-1 overflow-auto no-scrollbar">
+          <div className="p-4 flex-1 overflow-auto no-scrollbar">
             <div className="space-y-2">
               {[
                 { source: "Twitter (#MBG)", rate: "850/s" },
                 { source: "TikTok OCR (Protest)", rate: "1200/s" },
                 { source: "Telegram (BEM_SI)", rate: "12/s" },
               ].map(f => (
-                <div key={f.source} className="flex justify-between items-center bg-slate-900/50 border border-slate-800 p-3 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <p className="font-medium text-sm text-slate-200">{f.source}</p>
+                <div key={f.source} className="flex justify-between items-center bg-black/40 border border-white/[0.03] p-3 rounded-sm hover:border-white/[0.1] transition-colors">
+                  <div className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+                    <p className="font-medium font-sans text-sm text-zinc-200">{f.source}</p>
                   </div>
-                  <span className="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded border border-slate-800">{f.rate}</span>
+                  <span className="text-[10px] font-mono text-zinc-400 bg-black/50 px-2 py-1 rounded-sm micro-border">{f.rate}</span>
                 </div>
               ))}
             </div>

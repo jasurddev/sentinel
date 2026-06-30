@@ -42,37 +42,37 @@ export default function CellebritePage() {
       {/* Header */}
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold font-mono tracking-tight text-slate-100 flex items-center gap-3">
-            <Smartphone className="w-7 h-7 text-purple-500" /> CELLEBRITE_FORENSICS
+          <h1 className="text-2xl font-bold font-sans tracking-tight text-zinc-100 flex items-center gap-3">
+            <Smartphone className="w-7 h-7 text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" /> CELLEBRITE_FORENSICS
           </h1>
-          <p className="text-slate-400 mt-1 text-sm">Digital forensics acquisition and artifact extraction engine.</p>
+          <p className="text-zinc-500 mt-1 text-sm font-sans">Digital forensics acquisition and artifact extraction engine.</p>
         </div>
-        <button onClick={() => setShowTelemetry(true)} className="bg-slate-900/50 hover:bg-slate-800 text-xs font-mono text-slate-400 hover:text-purple-400 border border-slate-700 px-3 py-2 rounded-md transition-colors flex items-center gap-2">
+        <button onClick={() => setShowTelemetry(true)} className="bg-zinc-950/50 hover:bg-zinc-900 text-xs font-mono text-zinc-400 hover:text-purple-400 border border-white/[0.05] hover:border-purple-500/30 px-3 py-1.5 rounded-sm transition-colors flex items-center gap-2 shadow-sm">
           <Activity className="w-4 h-4 text-purple-400" /> SYS_DIAGNOSTICS
         </button>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-card border border-border rounded-xl p-4 flex items-center gap-4">
-          <div className="p-3 bg-purple-500/10 rounded-lg text-purple-400"><HardDrive className="w-6 h-6" /></div>
+        <div className="glass-card rounded-md p-4 flex items-center gap-4">
+          <div className="p-3 bg-purple-500/5 rounded-sm micro-border"><HardDrive className="w-5 h-5 text-purple-500" /></div>
           <div>
-            <p className="text-[10px] font-mono text-slate-500">DEVICES_EXTRACTED</p>
-            <p className="text-2xl font-bold font-mono text-slate-200">47</p>
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">DEVICES_EXTRACTED</p>
+            <p className="text-2xl font-bold font-mono text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">47</p>
           </div>
         </div>
-        <div className="bg-card border border-border rounded-xl p-4 flex items-center gap-4">
-          <div className="p-3 bg-cyan-500/10 rounded-lg text-cyan-400"><FileSearch className="w-6 h-6" /></div>
+        <div className="glass-card rounded-md p-4 flex items-center gap-4">
+          <div className="p-3 bg-cyan-500/5 rounded-sm micro-border"><FileSearch className="w-5 h-5 text-cyan-500" /></div>
           <div>
-            <p className="text-[10px] font-mono text-slate-500">ARTIFACTS_RECOVERED</p>
-            <p className="text-2xl font-bold font-mono text-slate-200">1.2M</p>
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">ARTIFACTS_RECOVERED</p>
+            <p className="text-2xl font-bold font-mono text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">1.2M</p>
           </div>
         </div>
-        <div className="bg-card border border-border rounded-xl p-4 flex items-center gap-4">
-          <div className="p-3 bg-yellow-500/10 rounded-lg text-yellow-400"><Briefcase className="w-6 h-6" /></div>
+        <div className="glass-card rounded-md p-4 flex items-center gap-4">
+          <div className="p-3 bg-yellow-500/5 rounded-sm micro-border"><Briefcase className="w-5 h-5 text-yellow-500" /></div>
           <div>
-            <p className="text-[10px] font-mono text-slate-500">ACTIVE_CASES</p>
-            <p className="text-2xl font-bold font-mono text-slate-200">12</p>
+            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">ACTIVE_CASES</p>
+            <p className="text-2xl font-bold font-mono text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">12</p>
           </div>
         </div>
       </div>
@@ -81,50 +81,50 @@ export default function CellebritePage() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         
         {/* Extraction Table (col-span-2) */}
-        <div className="xl:col-span-2 bg-card border border-border rounded-xl overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-border bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono text-sm">RECENT_EXTRACTIONS</h2>
+        <div className="xl:col-span-2 glass-card rounded-md overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-white/[0.05] bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm tracking-wide">RECENT EXTRACTIONS</h2>
           </div>
           <div className="p-4 flex-1 overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-800 text-xs font-mono text-slate-500">
-                  <th className="pb-3 px-2 font-normal">CASE_ID</th>
-                  <th className="pb-3 px-2 font-normal">DEVICE</th>
+                <tr className="border-b border-white/[0.05] text-[10px] font-sans font-semibold tracking-widest uppercase text-zinc-500">
+                  <th className="pb-3 px-2 font-normal">Case_ID</th>
+                  <th className="pb-3 px-2 font-normal">Device</th>
                   <th className="pb-3 px-2 font-normal">OS</th>
-                  <th className="pb-3 px-2 font-normal">METHOD</th>
-                  <th className="pb-3 px-2 font-normal text-right">ARTIFACTS</th>
-                  <th className="pb-3 px-2 font-normal text-right">ACTIONS</th>
+                  <th className="pb-3 px-2 font-normal">Method</th>
+                  <th className="pb-3 px-2 font-normal text-right">Artifacts</th>
+                  <th className="pb-3 px-2 font-normal text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="text-sm">
                 {extractions.map((row) => (
-                  <tr key={row.id} className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
-                    <td className="py-3 px-2 font-mono text-slate-300">{row.id}</td>
-                    <td className="py-3 px-2 text-slate-200">{row.device}</td>
-                    <td className="py-3 px-2 text-slate-400 text-xs">{row.os}</td>
+                  <tr key={row.id} className="border-b border-white/[0.02] hover:bg-white/[0.02] transition-colors">
+                    <td className="py-3 px-2 font-mono text-zinc-300 text-xs">{row.id}</td>
+                    <td className="py-3 px-2 text-zinc-200 font-sans text-sm">{row.device}</td>
+                    <td className="py-3 px-2 text-zinc-400 text-xs font-sans">{row.os}</td>
                     <td className="py-3 px-2">
-                      <span className={`text-[10px] font-mono px-2 py-1 rounded border ${
+                      <span className={`text-[9px] font-sans font-semibold tracking-widest px-2 py-0.5 rounded-sm border uppercase ${
                         row.method === 'Physical' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
                         row.method === 'Cloud' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
-                        'bg-slate-800 text-slate-400 border-slate-700'
+                        'bg-zinc-800 text-zinc-400 border-white/[0.05]'
                       }`}>
                         {row.method}
                       </span>
                     </td>
-                    <td className="py-3 px-2 text-right font-mono text-slate-300">{row.artifacts}</td>
+                    <td className="py-3 px-2 text-right font-mono text-zinc-300 text-xs">{row.artifacts}</td>
                     <td className="py-3 px-2 text-right">
                       {row.status === 'Complete' ? (
                         <button 
                           onClick={() => setActiveArtifacts(row.id)}
-                          className="bg-slate-800 hover:bg-slate-700 text-purple-400 px-3 py-1.5 rounded text-xs font-mono transition-colors border border-slate-700 inline-flex items-center gap-1"
+                          className="bg-zinc-950 hover:bg-zinc-900 text-purple-400 px-3 py-1 rounded-sm text-[10px] font-mono transition-colors border border-white/[0.05] hover:border-purple-500/30 inline-flex items-center gap-1.5"
                         >
                           <FolderTree className="w-3 h-3" /> BROWSE
                         </button>
                       ) : (
                         <div className="flex items-center justify-end gap-2 text-yellow-500">
-                          <Activity className="w-4 h-4 animate-pulse" />
-                          <span className="text-xs">{row.status}</span>
+                          <Activity className="w-3 h-3 animate-pulse" />
+                          <span className="text-[10px] font-sans tracking-widest uppercase">{row.status}</span>
                         </div>
                       )}
                     </td>
@@ -136,41 +136,41 @@ export default function CellebritePage() {
         </div>
 
         {/* Side Panel: Pipeline */}
-        <div className="bg-card border border-border rounded-xl flex flex-col h-fit">
-          <div className="p-4 border-b border-border bg-slate-900/50">
-            <h2 className="font-semibold text-slate-200 font-mono text-sm">EXTRACTION_PIPELINE</h2>
+        <div className="glass-card rounded-md flex flex-col h-fit">
+          <div className="p-4 border-b border-white/[0.05] bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm tracking-wide">EXTRACTION PIPELINE</h2>
           </div>
           <div className="p-6 flex flex-col gap-6">
             
             <div>
               <div className="flex justify-between items-end mb-2">
-                <p className="text-sm text-slate-300">Chat Analysis</p>
-                <p className="text-xs font-mono text-emerald-400">92%</p>
+                <p className="text-[11px] font-sans text-zinc-400 uppercase tracking-wider">Chat Analysis</p>
+                <p className="text-[10px] font-mono text-emerald-400 font-bold">92%</p>
               </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-zinc-950 border border-white/[0.03] h-1.5 rounded-sm overflow-hidden">
                 <div className="bg-emerald-500 h-full w-[92%] shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
               </div>
             </div>
 
             <div>
               <div className="flex justify-between items-end mb-2">
-                <p className="text-sm text-slate-300">EXIF Mapping</p>
-                <p className="text-xs font-mono text-cyan-400">78%</p>
+                <p className="text-[11px] font-sans text-zinc-400 uppercase tracking-wider">EXIF Mapping</p>
+                <p className="text-[10px] font-mono text-cyan-400 font-bold">78%</p>
               </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-zinc-950 border border-white/[0.03] h-1.5 rounded-sm overflow-hidden">
                 <div className="bg-cyan-500 h-full w-[78%] shadow-[0_0_8px_rgba(6,182,212,0.5)]"></div>
               </div>
             </div>
 
             <div>
               <div className="flex justify-between items-end mb-2">
-                <p className="text-sm text-slate-300">Cross-Case Correlation</p>
-                <p className="text-xs font-mono text-purple-400">45%</p>
+                <p className="text-[11px] font-sans text-zinc-400 uppercase tracking-wider">Cross-Case Correlation</p>
+                <p className="text-[10px] font-mono text-purple-400 font-bold">45%</p>
               </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-zinc-950 border border-white/[0.03] h-1.5 rounded-sm overflow-hidden">
                 <div className="bg-purple-500 h-full w-[45%] shadow-[0_0_8px_rgba(168,85,247,0.5)] animate-pulse"></div>
               </div>
-              <p className="text-[10px] text-slate-500 mt-2">Processing CS-002 against 47 known devices...</p>
+              <p className="text-[9px] font-mono text-zinc-500 mt-3">Processing CS-002 against 47 known devices...</p>
             </div>
 
           </div>
@@ -180,62 +180,62 @@ export default function CellebritePage() {
       {/* ARTIFACT BROWSER MODAL */}
       {activeArtifacts && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setActiveArtifacts(null)}></div>
-          <div className="relative bg-[#020617] border border-purple-900/50 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-[0_0_50px_rgba(168,85,247,0.15)] flex flex-col animate-in zoom-in-95 duration-200">
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setActiveArtifacts(null)}></div>
+          <div className="relative bg-[#040405] border border-white/[0.1] rounded-md w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
             
-            <div className="p-5 border-b border-slate-800 flex justify-between items-center bg-purple-950/20">
+            <div className="p-5 border-b border-white/[0.05] flex justify-between items-center bg-purple-950/10">
               <div className="flex items-center gap-3">
-                <FolderTree className="w-5 h-5 text-purple-400" />
-                <h2 className="font-mono font-bold text-slate-100">ARTIFACT_EXPLORER // {activeArtifacts}</h2>
+                <FolderTree className="w-4 h-4 text-purple-500" />
+                <h2 className="font-mono font-bold text-zinc-100">ARTIFACT_EXPLORER // {activeArtifacts}</h2>
               </div>
-              <button onClick={() => setActiveArtifacts(null)} className="text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setActiveArtifacts(null)} className="text-zinc-500 hover:text-white"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="flex-1 overflow-auto p-0 flex">
+            <div className="flex-1 overflow-auto p-0 flex h-[600px]">
               {/* Sidebar File Tree */}
-              <div className="w-1/3 border-r border-slate-800 p-4 bg-slate-900/30 overflow-y-auto">
-                <p className="text-xs font-mono text-slate-500 mb-4">Extracted File System</p>
-                <ul className="space-y-2 text-sm text-slate-300 font-mono">
-                  <li className="flex items-center gap-2"><FolderTree className="w-4 h-4 text-slate-500" /> Root/</li>
-                  <li className="flex items-center gap-2 pl-4 text-purple-400"><FolderTree className="w-4 h-4" /> WhatsApp/</li>
-                  <li className="flex items-center gap-2 pl-8 hover:text-white cursor-pointer"><MessageCircle className="w-4 h-4 text-emerald-500" /> msgstore.db.crypt14</li>
-                  <li className="flex items-center gap-2 pl-8 hover:text-white cursor-pointer"><ImageIcon className="w-4 h-4 text-sky-500" /> Media/</li>
-                  <li className="flex items-center gap-2 pl-4"><FolderTree className="w-4 h-4 text-slate-500" /> System/</li>
-                  <li className="flex items-center gap-2 pl-8 hover:text-white cursor-pointer"><File className="w-4 h-4 text-slate-500" /> accounts.sqlite</li>
-                  <li className="flex items-center gap-2 pl-4"><FolderTree className="w-4 h-4 text-slate-500" /> UserData/</li>
-                  <li className="flex items-center gap-2 pl-8 hover:text-white cursor-pointer"><File className="w-4 h-4 text-slate-500" /> keystore.bin</li>
+              <div className="w-1/3 border-r border-white/[0.05] p-5 bg-black/40 overflow-y-auto">
+                <p className="text-[9px] font-sans tracking-widest text-zinc-500 mb-5 uppercase">Extracted File System</p>
+                <ul className="space-y-3 text-[11px] text-zinc-400 font-mono">
+                  <li className="flex items-center gap-2"><FolderTree className="w-3 h-3 text-zinc-600" /> Root/</li>
+                  <li className="flex items-center gap-2 pl-4 text-purple-400"><FolderTree className="w-3 h-3" /> WhatsApp/</li>
+                  <li className="flex items-center gap-2 pl-8 hover:text-zinc-100 cursor-pointer transition-colors text-zinc-300"><MessageCircle className="w-3 h-3 text-emerald-500" /> msgstore.db.crypt14</li>
+                  <li className="flex items-center gap-2 pl-8 hover:text-zinc-100 cursor-pointer transition-colors"><ImageIcon className="w-3 h-3 text-sky-500" /> Media/</li>
+                  <li className="flex items-center gap-2 pl-4"><FolderTree className="w-3 h-3 text-zinc-600" /> System/</li>
+                  <li className="flex items-center gap-2 pl-8 hover:text-zinc-100 cursor-pointer transition-colors"><File className="w-3 h-3 text-zinc-600" /> accounts.sqlite</li>
+                  <li className="flex items-center gap-2 pl-4"><FolderTree className="w-3 h-3 text-zinc-600" /> UserData/</li>
+                  <li className="flex items-center gap-2 pl-8 hover:text-zinc-100 cursor-pointer transition-colors"><File className="w-3 h-3 text-zinc-600" /> keystore.bin</li>
                 </ul>
               </div>
 
               {/* Main Content Area */}
-              <div className="w-2/3 p-6 flex flex-col">
+              <div className="w-2/3 p-6 flex flex-col bg-zinc-950/20">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800">
-                    <MessageCircle className="w-8 h-8 text-emerald-500" />
+                  <div className="flex items-center gap-4 mb-6 pb-5 border-b border-white/[0.05]">
+                    <MessageCircle className="w-6 h-6 text-emerald-500 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                     <div>
-                      <h3 className="text-lg font-bold text-slate-200">msgstore.db.crypt14</h3>
-                      <p className="text-xs font-mono text-slate-500">Status: DECRYPTED • 14,293 Records</p>
+                      <h3 className="text-sm font-bold font-mono text-zinc-200">msgstore.db.crypt14</h3>
+                      <p className="text-[10px] font-sans tracking-widest text-zinc-500 mt-1 uppercase">Status: DECRYPTED • 14,293 Records</p>
                     </div>
                   </div>
                   
-                  <div className="bg-black border border-slate-800 rounded p-4 font-mono text-xs text-slate-400 h-64 overflow-y-auto">
-                    <p className="text-red-400 mb-2">/* INTELLIGENCE ALERT: Target keywords found */</p>
+                  <div className="bg-[#020617] border border-white/[0.03] rounded-sm p-5 font-mono text-[11px] text-zinc-400 h-64 overflow-y-auto shadow-inner">
+                    <p className="text-red-400 mb-3 font-semibold">/* INTELLIGENCE ALERT: Target keywords found */</p>
                     <p>[2026-06-29 14:32:11] <strong>Sender: +62812XXXXX</strong></p>
-                    <p className="mb-4 text-slate-300">"Uangnya udah masuk ke rekening yang satu lagi. Pastikan anak-anak kumpul di titik X besok siang."</p>
+                    <p className="mb-5 text-zinc-300">"Uangnya udah masuk ke rekening yang satu lagi. Pastikan anak-anak kumpul di titik X besok siang."</p>
                     
                     <p>[2026-06-29 14:35:04] <strong>Target</strong></p>
-                    <p className="mb-4 text-slate-300">"Aman. Sudah dikoordinasikan sama korlap. Jangan lupa hapus chat ini."</p>
+                    <p className="mb-5 text-zinc-300">"Aman. Sudah dikoordinasikan sama korlap. Jangan lupa hapus chat ini."</p>
                     
-                    <p className="text-purple-400 border-t border-slate-800 pt-2 mt-4 inline-block">-- END OF DECRYPTED FRAGMENT --</p>
+                    <p className="text-purple-400 border-t border-white/[0.05] pt-3 mt-4 inline-block opacity-70">-- END OF DECRYPTED FRAGMENT --</p>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+                <div className="mt-6 pt-5 border-t border-white/[0.05] flex justify-end">
                   <button 
                     onClick={() => handleDownloadUFDR(activeArtifacts)}
-                    className="py-2 px-6 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold font-mono rounded flex items-center gap-2 transition-colors shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                    className="py-2 px-6 bg-purple-950 hover:bg-purple-900 text-purple-400 text-xs font-sans tracking-widest border border-purple-800 rounded-sm flex items-center gap-2 transition-colors"
                   >
-                    <Download className="w-4 h-4" /> EXPORT FULL .UFDR
+                    <Download className="w-3 h-3" /> EXPORT FULL .UFDR
                   </button>
                 </div>
               </div>
