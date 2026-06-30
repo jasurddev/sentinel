@@ -105,8 +105,8 @@ export default function NetraPage() {
             <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
           </div>
           
-          {/* Bounding Box 1 (Main Target - Foreground) */}
-          <div className="absolute top-[25%] left-[20%] w-28 h-36 border-[1.5px] border-cyan-400 shadow-[0_0_10px_#22d3ee] z-10 animate-pulse bg-cyan-500/10">
+          {/* Bounding Box 1 (Main Target - Foreground Left) */}
+          <div className="absolute top-[35%] left-[20%] w-16 h-20 md:w-20 md:h-24 border-[1.5px] border-cyan-400 shadow-[0_0_10px_#22d3ee] z-10 animate-pulse bg-cyan-500/10">
             <div className="absolute -top-5 left-0 bg-cyan-400 text-black text-[9px] font-mono font-bold px-1.5 py-0.5 whitespace-nowrap">MATCH: 98.7%</div>
             <div className="absolute -bottom-5 left-0 text-cyan-400 text-[10px] font-mono font-bold drop-shadow-md whitespace-nowrap">AHMAD MULYADI</div>
             {/* Corners */}
@@ -116,8 +116,8 @@ export default function NetraPage() {
             <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-white"></div>
           </div>
 
-          {/* Bounding Box 2 (Secondary Target - Background Right) */}
-          <div className="absolute top-[45%] left-[65%] w-20 h-24 border-[1.5px] border-yellow-500 shadow-[0_0_8px_#eab308] z-10 opacity-70">
+          {/* Bounding Box 2 (Secondary Target - Sunglasses Guy Right) */}
+          <div className="absolute top-[30%] left-[58%] w-12 h-16 md:w-14 md:h-20 border-[1.5px] border-yellow-500 shadow-[0_0_8px_#eab308] z-10 opacity-70">
             <div className="absolute -top-4 left-0 bg-yellow-500 text-black text-[7px] font-mono font-bold px-1">ANALYZING...</div>
           </div>
 
