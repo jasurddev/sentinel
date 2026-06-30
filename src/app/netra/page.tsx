@@ -90,16 +90,23 @@ export default function NetraPage() {
         
         {/* LIVE CCTV FEED (col-span-2) */}
         <div className="xl:col-span-2 glass-card rounded-md flex flex-col relative overflow-hidden h-[400px] border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-          {/* Fake Video Background */}
+          {/* Real Video Background */}
           <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center">
-            <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1558021211-6d1403321394?q=80&w=1000')] bg-cover bg-center grayscale filter contrast-125"></div>
+            <video 
+              src="/demo.mp4" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover object-center grayscale filter contrast-125 opacity-70"
+            />
             <div className="absolute inset-0 bg-cyan-900/20 mix-blend-color-burn"></div>
             {/* Scanlines effect */}
             <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
           </div>
           
-          {/* Bounding Box 1 */}
-          <div className="absolute top-[35%] left-[55%] w-20 h-24 border-[1.5px] border-cyan-400 shadow-[0_0_10px_#22d3ee] z-10 animate-pulse bg-cyan-500/10">
+          {/* Bounding Box 1 (Main Target - Foreground) */}
+          <div className="absolute top-[25%] left-[20%] w-28 h-36 border-[1.5px] border-cyan-400 shadow-[0_0_10px_#22d3ee] z-10 animate-pulse bg-cyan-500/10">
             <div className="absolute -top-5 left-0 bg-cyan-400 text-black text-[9px] font-mono font-bold px-1.5 py-0.5 whitespace-nowrap">MATCH: 98.7%</div>
             <div className="absolute -bottom-5 left-0 text-cyan-400 text-[10px] font-mono font-bold drop-shadow-md whitespace-nowrap">AHMAD MULYADI</div>
             {/* Corners */}
@@ -109,8 +116,8 @@ export default function NetraPage() {
             <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-white"></div>
           </div>
 
-          {/* Bounding Box 2 (Unknown) */}
-          <div className="absolute top-[45%] left-[25%] w-14 h-16 border-[1.5px] border-yellow-500 shadow-[0_0_8px_#eab308] z-10 opacity-70">
+          {/* Bounding Box 2 (Secondary Target - Background Right) */}
+          <div className="absolute top-[45%] left-[65%] w-20 h-24 border-[1.5px] border-yellow-500 shadow-[0_0_8px_#eab308] z-10 opacity-70">
             <div className="absolute -top-4 left-0 bg-yellow-500 text-black text-[7px] font-mono font-bold px-1">ANALYZING...</div>
           </div>
 
