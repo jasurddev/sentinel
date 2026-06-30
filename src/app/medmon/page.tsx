@@ -13,7 +13,10 @@ import {
   Brain,
   Users,
   Sparkles,
+  Download,
 } from 'lucide-react'
+import { TechTelemetryPanel } from '@/components/features/TechTelemetryPanel'
+import { triggerMockDownload } from '@/lib/downloadMock'
 
 /* ─── Types ─────────────────────────────────────────────────────── */
 
@@ -103,6 +106,18 @@ function influencerColor(sentiment: Influencer['sentiment']): string {
 
 export default function MedmonPage() {
   const [mounted, setMounted] = useState(false)
+  const [showTelemetry, setShowTelemetry] = useState(false)
+
+  const handleDownloadCSV = () => {
+    const csvContent = `id,platform,text,sentiment,author,timestamp
+1,Twitter,"Mosi tidak percaya, turun ke jalan!",-0.89,@user123,2026-06-29T14:00:00Z
+2,TikTok,"Gas terus kawan-kawan, jangan kasih kendor",-0.75,@rebel_tiktok,2026-06-29T14:05:00Z
+3,Telegram,"Instruksi korlap sudah turun, titik kumpul di patung kuda",-0.6,@anon_99,2026-06-29T14:10:00Z
+4,Twitter,"Anggaran bocor kemana nih??",-0.92,@warga_biasa,2026-06-29T14:12:00Z
+5,Instagram,"Tetap damai ya teman-teman",0.45,@peace_maker,2026-06-29T14:15:00Z`
+    
+    triggerMockDownload(`SEMANTIS_RAW_DATA_${Date.now()}.csv`, csvContent, "text/csv")
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -121,11 +136,19 @@ export default function MedmonPage() {
           </p>
         </div>
 
-        <div className="bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-md flex items-center gap-3">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-emerald-400 font-mono text-sm font-bold tracking-widest">
-            LIVE
-          </span>
+        <div className="flex gap-3">
+          <button onClick={handleDownloadCSV} className="bg-emerald-950/50 hover:bg-emerald-900 text-xs font-mono text-emerald-400 border border-emerald-800 px-3 py-2 rounded-md transition-colors flex items-center gap-2 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+            <Download className="w-4 h-4" /> EXPORT_CSV
+          </button>
+          <button onClick={() => setShowTelemetry(true)} className="bg-slate-900/50 hover:bg-slate-800 text-xs font-mono text-slate-400 hover:text-emerald-400 border border-slate-700 px-3 py-2 rounded-md transition-colors flex items-center gap-2">
+            <Activity className="w-4 h-4 text-emerald-400" /> SYS_DIAGNOSTICS
+          </button>
+          <div className="bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-md flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-emerald-400 font-mono text-sm font-bold tracking-widest">
+              LIVE
+            </span>
+          </div>
         </div>
       </div>
 
@@ -311,6 +334,22 @@ export default function MedmonPage() {
           </div>
         </div>
       </div>
+
+      <TechTelemetryPanel
+        isOpen={showTelemetry}
+        onClose={() => setShowTelemetry(false)}
+        data={{
+          title: "SEMANTIS Engine",
+          workflow: ["Scrape Twitter/TikTok/TG", "LLM Sentiment Classification", "SNA Reach Calculation", "Data Visualization"],
+          variables: [
+            { name: "sentimentIndex", value: "-34.2%", type: "Float [-100..100]" },
+            { name: "trendDirection", value: "UP (Rising)", type: "Enum" },
+            { name: "volume/mentions", value: "847K", type: "Integer" }
+          ],
+          inputs: ["{ platform: 'Twitter', text: 'Mosi tidak percaya', author: '@user123' }"],
+          outputs: ["{ narrative: '#ReformasiJilid2', sentiment: -67, status: 'Hostile' }"]
+        }}
+      />
     </div>
   )
 }

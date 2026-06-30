@@ -1,6 +1,21 @@
-import { Megaphone, Target, Bot, MessageSquare, Activity } from "lucide-react"
+'use client'
+
+import { Megaphone, Target, Bot, MessageSquare, Activity, Download } from "lucide-react"
+import { useState } from "react"
+import { TechTelemetryPanel } from "@/components/features/TechTelemetryPanel"
+import { triggerMockDownload } from "@/lib/downloadMock"
 
 export default function BuzzerPage() {
+  const [showTelemetry, setShowTelemetry] = useState(false)
+  
+  const handleDownloadROI = () => {
+    const csvContent = `Campaign_ID,Target_Narrative,Platform,Accounts_Deployed,Engagement_Rate,Posts_Generated,Status
+BZ-001,Counter #ReformasiJilid2,Twitter/X,800,4.2%,12500,ACTIVE
+BZ-002,Amplify Pro-MBG Sentiment,TikTok,1200,6.8%,45000,ACTIVE
+BZ-003,Neutralize Hoax Campaign,Instagram,400,2.1%,8000,STAGING`
+    triggerMockDownload(`BUZZER_ROI_REPORT_${Date.now()}.csv`, csvContent, "text/csv")
+  }
+
   const campaigns = [
     { id: "BZ-001", narrative: "Counter #ReformasiJilid2", platform: "Twitter/X", accounts: 800, engagement: "4.2%", status: "ACTIVE" },
     { id: "BZ-002", narrative: "Amplify Pro-MBG Sentiment", platform: "TikTok", accounts: 1200, engagement: "6.8%", status: "ACTIVE" },
@@ -18,6 +33,9 @@ export default function BuzzerPage() {
           </h1>
           <p className="text-slate-400 mt-1 text-sm">Information warfare — Content distribution and engagement manipulation.</p>
         </div>
+        <button onClick={() => setShowTelemetry(true)} className="bg-slate-900/50 hover:bg-slate-800 text-xs font-mono text-slate-400 hover:text-yellow-400 border border-slate-700 px-3 py-2 rounded-md transition-colors flex items-center gap-2">
+          <Activity className="w-4 h-4 text-yellow-400" /> SYS_DIAGNOSTICS
+        </button>
       </div>
 
       {/* Stats Row */}
@@ -52,9 +70,14 @@ export default function BuzzerPage() {
         <div className="xl:col-span-2 bg-card border border-border rounded-xl overflow-hidden flex flex-col">
           <div className="p-4 border-b border-border bg-slate-900/50 flex justify-between items-center">
             <h2 className="font-semibold text-slate-200 font-mono text-sm">CAMPAIGN_MANAGER</h2>
-            <button className="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1 rounded hover:bg-yellow-500/20 transition-colors">
-              + NEW_CAMPAIGN
-            </button>
+            <div className="flex gap-2">
+              <button onClick={handleDownloadROI} className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded hover:bg-emerald-500/20 transition-colors flex items-center gap-2">
+                <Download className="w-3 h-3" /> EXPORT_ROI
+              </button>
+              <button className="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1 rounded hover:bg-yellow-500/20 transition-colors">
+                + NEW_CAMPAIGN
+              </button>
+            </div>
           </div>
           <div className="p-4 flex-1 overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -124,6 +147,22 @@ export default function BuzzerPage() {
         </div>
 
       </div>
+
+      <TechTelemetryPanel
+        isOpen={showTelemetry}
+        onClose={() => setShowTelemetry(false)}
+        data={{
+          title: "BUZZER Information Warfare",
+          workflow: ["Input Target Narrative", "LLM Content Generation & Spinning", "Task Scheduler Queue", "Headless Browser Bot Farm Execution"],
+          variables: [
+            { name: "accountsDeployed", value: "2400", type: "Integer" },
+            { name: "uniqueSpinScore", value: "94%", type: "Float [0..100]" },
+            { name: "engagementRate", value: "6.8%", type: "Float" }
+          ],
+          inputs: ["{ target_narrative: 'Counter #ReformasiJilid2', platform: 'Twitter' }"],
+          outputs: ["{ status: 'SUCCESS', posts_deployed: 142, proxy: 'RES_ID_77' }"]
+        }}
+      />
     </div>
   )
 }
