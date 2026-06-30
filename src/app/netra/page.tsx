@@ -88,59 +88,108 @@ export default function NetraPage() {
       {/* Main Content Split */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         
-        {/* Profile Grid (col-span-2) */}
-        <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* LIVE CCTV FEED (col-span-2) */}
+        <div className="xl:col-span-2 glass-card rounded-md flex flex-col relative overflow-hidden h-[400px] border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+          {/* Fake Video Background */}
+          <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center">
+            <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1558021211-6d1403321394?q=80&w=1000')] bg-cover bg-center grayscale filter contrast-125"></div>
+            <div className="absolute inset-0 bg-cyan-900/20 mix-blend-color-burn"></div>
+            {/* Scanlines effect */}
+            <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none"></div>
+          </div>
+          
+          {/* Bounding Box 1 */}
+          <div className="absolute top-[35%] left-[55%] w-20 h-24 border-[1.5px] border-cyan-400 shadow-[0_0_10px_#22d3ee] z-10 animate-pulse bg-cyan-500/10">
+            <div className="absolute -top-5 left-0 bg-cyan-400 text-black text-[9px] font-mono font-bold px-1.5 py-0.5 whitespace-nowrap">MATCH: 98.7%</div>
+            <div className="absolute -bottom-5 left-0 text-cyan-400 text-[10px] font-mono font-bold drop-shadow-md whitespace-nowrap">AHMAD MULYADI</div>
+            {/* Corners */}
+            <div className="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-white"></div>
+            <div className="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-white"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-white"></div>
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-white"></div>
+          </div>
+
+          {/* Bounding Box 2 (Unknown) */}
+          <div className="absolute top-[45%] left-[25%] w-14 h-16 border-[1.5px] border-yellow-500 shadow-[0_0_8px_#eab308] z-10 opacity-70">
+            <div className="absolute -top-4 left-0 bg-yellow-500 text-black text-[7px] font-mono font-bold px-1">ANALYZING...</div>
+          </div>
+
+          {/* Scanner Line */}
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-cyan-400 opacity-80 shadow-[0_0_15px_#22d3ee] animate-[scan_3s_ease-in-out_infinite] z-10"></div>
+
+          {/* Terminal Overlay */}
+          <div className="absolute bottom-4 left-4 w-72 bg-black/80 border border-white/[0.1] rounded-sm p-3 font-mono text-[10px] text-zinc-400 flex flex-col gap-1.5 z-20 backdrop-blur-sm">
+            <p className="text-cyan-500 font-bold mb-1 flex items-center gap-2"><Activity className="w-3 h-3"/> LIVE_LOG // CCTV_NODE_DAGO_4</p>
+            <p className="animate-pulse">&gt; Ingesting video frame_4892...</p>
+            <p>&gt; Detected: 2 Faces in crowd.</p>
+            <p>&gt; Extracting facial vectors [Model: InsightFace_v4]...</p>
+            <p>&gt; Querying DUKCAPIL National DB...</p>
+            <p className="text-emerald-400 font-bold">&gt; SUCCESS: TANGO-01 Identified (98.7% Confidence)</p>
+          </div>
+          
+          <div className="absolute top-4 right-4 bg-red-600 border border-red-400 text-white text-[9px] font-sans font-bold px-2 py-1 rounded-sm flex items-center gap-2 z-20">
+            <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div> LIVE FEED
+          </div>
+        </div>
+
+      {/* Identified Profiles Section */}
+      <div className="mt-2">
+        <h2 className="text-sm font-sans font-semibold text-zinc-300 mb-4 flex items-center gap-2">
+          <Users className="w-4 h-4 text-cyan-500" /> RECENT MATCHES
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {profiles.map((profile) => (
-            <div key={profile.id} className={`glass-card rounded-md p-5 flex flex-col gap-4 transition-all ${
-              profile.threat === 'CRITICAL' ? 'border-l-2 border-l-red-500' :
-              profile.threat === 'HIGH' ? 'border-l-2 border-l-yellow-500' :
-              'border-l-2 border-l-zinc-500'
+            <div key={profile.id} className={`glass-card rounded-md p-4 flex flex-col gap-4 transition-all ${
+              profile.threat === 'CRITICAL' ? 'border-t-2 border-t-red-500' :
+              profile.threat === 'HIGH' ? 'border-t-2 border-t-yellow-500' :
+              'border-t-2 border-t-zinc-500'
             }`}>
               
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 {/* Silhouette */}
-                <div className="w-16 h-16 rounded-sm bg-zinc-950 border border-white/[0.05] flex items-center justify-center shrink-0 overflow-hidden relative shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
-                  <ScanFace className="w-8 h-8 text-zinc-700" />
+                <div className="w-12 h-12 rounded-sm bg-zinc-950 border border-white/[0.05] flex items-center justify-center shrink-0 overflow-hidden relative shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+                  <ScanFace className="w-6 h-6 text-zinc-700" />
                   {profile.status === 'IDENTIFIED' && <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay"></div>}
-                  {profile.status === 'IDENTIFIED' && <div className="absolute top-0 left-0 w-full h-[1px] bg-cyan-400 opacity-60 shadow-[0_0_8px_#22d3ee] animate-[scan_2s_ease-in-out_infinite]"></div>}
                 </div>
                 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-start mb-1">
-                    <h3 className="font-mono font-bold text-zinc-200 truncate">{profile.id}</h3>
-                    <span className={`text-[9px] font-sans font-semibold tracking-widest px-2 py-0.5 rounded-sm border ${
-                      profile.status === 'IDENTIFIED' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
-                      profile.status === 'TRACKING' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' :
-                      'bg-zinc-800 text-zinc-400 border-white/[0.05]'
-                    }`}>
-                      {profile.status}
-                    </span>
+                    <h3 className="font-mono font-bold text-zinc-200 text-sm truncate">{profile.id}</h3>
                   </div>
-                  <div className="space-y-1 mt-3">
-                    <div className="flex justify-between text-[11px] font-sans">
-                      <span className="text-zinc-500">Match Accuracy</span>
-                      <span className="font-mono text-emerald-400">{profile.match}</span>
-                    </div>
-                    <div className="flex justify-between text-[11px] font-sans">
-                      <span className="text-zinc-500">Last Fix</span>
-                      <span className="truncate ml-4 text-zinc-300">{profile.location}</span>
-                    </div>
-                  </div>
+                  <span className={`inline-block text-[9px] font-sans font-semibold tracking-widest px-1.5 py-0.5 rounded-sm border ${
+                    profile.status === 'IDENTIFIED' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
+                    profile.status === 'TRACKING' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' :
+                    'bg-zinc-800 text-zinc-400 border-white/[0.05]'
+                  }`}>
+                    {profile.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] font-sans">
+                  <span className="text-zinc-500">Match Acc:</span>
+                  <span className="font-mono text-emerald-400">{profile.match}</span>
+                </div>
+                <div className="flex justify-between text-[10px] font-sans">
+                  <span className="text-zinc-500">Loc:</span>
+                  <span className="truncate ml-2 text-zinc-300">{profile.location.split(',')[0]}</span>
                 </div>
               </div>
 
               {/* Action */}
               <button 
                 onClick={() => setActiveDossier(profile.id)}
-                className="w-full mt-2 py-1.5 bg-zinc-950 hover:bg-zinc-900 text-xs font-mono text-cyan-500 border border-white/[0.03] hover:border-cyan-500/30 rounded-sm transition-colors flex justify-center items-center gap-2"
+                className="w-full mt-1 py-1.5 bg-zinc-950 hover:bg-zinc-900 text-[10px] font-mono text-cyan-500 border border-white/[0.03] hover:border-cyan-500/30 rounded-sm transition-colors flex justify-center items-center gap-2"
               >
-                <FileText className="w-3 h-3" /> VIEW_DOSSIER
+                <FileText className="w-3 h-3" /> DOSSIER
               </button>
 
             </div>
           ))}
         </div>
+      </div>
 
         {/* Side Panel: Engine Status */}
         <div className="glass-card rounded-md flex flex-col h-fit">
