@@ -174,7 +174,7 @@ export default function NetraPage() {
       {activeDossier && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setActiveDossier(null)}></div>
-          <div className="relative bg-[#040405] border border-white/[0.1] rounded-md w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
+          <div className="relative bg-[#040405] border border-white/[0.1] rounded-md w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
             
             <div className="p-5 border-b border-white/[0.05] flex justify-between items-center bg-cyan-950/10">
               <div className="flex items-center gap-3">

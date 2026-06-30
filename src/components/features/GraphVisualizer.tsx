@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import ForceGraph2D from "react-force-graph-2d"
+import { X } from "lucide-react"
 
 interface Props {
   isPreview?: boolean
@@ -65,6 +66,7 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [data, setData] = useState({ nodes: [], links: [] })
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
+  const [selectedNode, setSelectedNode] = useState<any>(null)
   
   useEffect(() => {
     setData(generateData() as any)
@@ -111,6 +113,34 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
       {isPreview && (
         <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-[#020617] to-transparent opacity-40"></div>
       )}
+
+      {selectedNode && !isPreview && (
+        <div className="absolute top-4 right-4 z-20 w-72 bg-[#040405]/95 border border-white/[0.1] rounded-md backdrop-blur-md shadow-2xl flex flex-col animate-in slide-in-from-right-8 duration-300">
+          <div className="p-4 border-b border-white/[0.05] flex justify-between items-start bg-cyan-950/10">
+            <div className="min-w-0 pr-4">
+              <h3 className="font-mono text-zinc-100 font-bold truncate">{selectedNode.name || selectedNode.id}</h3>
+              <p className="text-[10px] font-sans text-cyan-500 uppercase tracking-widest mt-1">TYPE: {selectedNode.group}</p>
+            </div>
+            <button onClick={() => setSelectedNode(null)} className="text-zinc-500 hover:text-white shrink-0">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="p-4 flex flex-col gap-3">
+            <div className="bg-black/50 border border-white/[0.03] p-3 rounded-sm">
+              <p className="text-[9px] font-sans text-zinc-500 uppercase tracking-widest">Entity Threat Score</p>
+              <p className="font-mono text-zinc-200 mt-1 text-lg">{selectedNode.val * 10} / 100</p>
+            </div>
+            <div className="bg-black/50 border border-white/[0.03] p-3 rounded-sm">
+              <p className="text-[9px] font-sans text-zinc-500 uppercase tracking-widest">Connected Nodes</p>
+              <p className="font-mono text-zinc-200 mt-1">{Math.floor(selectedNode.val * 3.5)} Active Links</p>
+            </div>
+            <button className="w-full mt-2 py-2 bg-zinc-950 hover:bg-zinc-900 text-xs font-mono text-cyan-500 border border-white/[0.05] hover:border-cyan-500/30 rounded-sm transition-colors">
+              EXTRACT_DOSSIER
+            </button>
+          </div>
+        </div>
+      )}
+
       <ForceGraph2D
         ref={fgRef}
         graphData={data}
@@ -173,6 +203,7 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
         enableNodeDrag={!isPreview}
         enableZoomInteraction={!isPreview}
         enablePanInteraction={!isPreview}
+        onNodeClick={(node) => !isPreview && setSelectedNode(node)}
         warmupTicks={50}
         cooldownTicks={150}
       />
