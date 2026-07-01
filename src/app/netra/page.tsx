@@ -5,20 +5,42 @@ import { useState } from "react"
 import { TechTelemetryPanel } from "@/components/features/TechTelemetryPanel"
 import { triggerMockDownload } from "@/lib/downloadMock"
 import dynamic from "next/dynamic"
+import { useMission } from "@/contexts/MissionContext"
 
 const GraphVisualizer = dynamic(() => import("@/components/features/GraphVisualizer"), { ssr: false })
 
 export default function NetraPage() {
+  const { activeMission } = useMission()
   const [showTelemetry, setShowTelemetry] = useState(false)
   const [activeDossier, setActiveDossier] = useState<string | null>(null)
   const [showSnapshot, setShowSnapshot] = useState<string | null>(null)
 
-  const profiles = [
-    { id: "TANGO-01", match: "98.7%", status: "IDENTIFIED", location: "Bandung, ID", threat: "CRITICAL" },
-    { id: "TANGO-02", match: "94.2%", status: "TRACKING", location: "Jakarta Selatan, ID", threat: "HIGH" },
-    { id: "TANGO-03", match: "89.5%", status: "IDENTIFIED", location: "Surabaya, ID", threat: "HIGH" },
-    { id: "UNKNOWN-X", match: "45.1%", status: "UNKNOWN", location: "Unknown (VPN Detected)", threat: "MEDIUM" },
-  ]
+  const getProfilesByMission = () => {
+    switch(activeMission.id) {
+      case 'LODAYA':
+        return [
+          { id: "TANGO-01", match: "98.7%", status: "IDENTIFIED", location: "Bandung, ID", threat: "CRITICAL" },
+          { id: "TANGO-02", match: "94.2%", status: "TRACKING", location: "Tasikmalaya, ID", threat: "HIGH" },
+          { id: "TANGO-03", match: "89.5%", status: "IDENTIFIED", location: "Garut, ID", threat: "HIGH" },
+          { id: "UNKNOWN-X", match: "45.1%", status: "UNKNOWN", location: "Unknown (VPN Detected)", threat: "MEDIUM" },
+        ];
+      case 'MANGUNI':
+        return [
+          { id: "TANGO-M1", match: "99.1%", status: "IDENTIFIED", location: "Manado, ID", threat: "CRITICAL" },
+          { id: "TANGO-M2", match: "92.4%", status: "TRACKING", location: "Bitung, ID", threat: "HIGH" },
+          { id: "UNKNOWN-Y", match: "31.2%", status: "UNKNOWN", location: "Unknown (Tor Exit Node)", threat: "MEDIUM" },
+        ];
+      case 'MANDAU':
+        return [
+          { id: "TANGO-K1", match: "97.5%", status: "IDENTIFIED", location: "Balikpapan, ID", threat: "CRITICAL" },
+          { id: "TANGO-K2", match: "88.9%", status: "IDENTIFIED", location: "Samarinda, ID", threat: "HIGH" },
+        ];
+      default:
+        return [];
+    }
+  }
+
+  const profiles = getProfilesByMission()
 
   const handleDownloadDossier = (id: string) => {
     const mockData = JSON.stringify({
