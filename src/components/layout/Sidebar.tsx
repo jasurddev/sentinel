@@ -36,6 +36,7 @@ const navSections: NavSection[] = [
     title: "COMMAND",
     items: [
       { icon: Home, label: "Command Center", href: "/" },
+      { icon: Shield, label: "Operation Brief", href: "/op-brief" },
       { icon: Search, label: "Omnisearch", href: "/omnisearch" },
     ],
   },
