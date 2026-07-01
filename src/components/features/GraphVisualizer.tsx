@@ -156,18 +156,22 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
           else if (node.group === 'ORG') color = '#10b981';
           else if (node.group === 'LOC' || node.group === 'IP') color = '#a855f7';
           else if (node.group === 'PHONE') color = '#f97316';
-          else if (node.group === 'BOT') color = '#334155';
-          else if (node.group === 'USER') color = '#475569';
+          else if (node.group === 'BOT') color = '#1e293b';
+          else if (node.group === 'USER') color = '#334155';
 
-          // Blinking effect for CRITICAL
-          if (node.group === 'CRITICAL') {
-            const t = Date.now() / 150;
-            const radius = node.val + 2 + Math.abs(Math.sin(t)) * 5;
+          // Glow Effect
+          ctx.shadowColor = color;
+          ctx.shadowBlur = 15 * (globalScale/2); // Scale glow with zoom
+
+          // Blinking effect for CRITICAL / Important nodes
+          if (node.group === 'CRITICAL' || node.group === 'ACCOUNT' || node.group === 'ORG') {
+            const t = Date.now() / 200;
+            const radius = node.val + 2 + Math.abs(Math.sin(t)) * (node.group === 'CRITICAL' ? 6 : 3);
             ctx.beginPath();
             ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false);
-            ctx.fillStyle = 'rgba(239, 68, 68, 0.15)';
+            ctx.fillStyle = color === '#ef4444' ? 'rgba(239, 68, 68, 0.15)' : `${color}33`;
             ctx.fill();
-            ctx.strokeStyle = 'rgba(239, 68, 68, 0.8)';
+            ctx.strokeStyle = color === '#ef4444' ? 'rgba(239, 68, 68, 0.8)' : `${color}99`;
             ctx.lineWidth = 1.5 / globalScale;
             ctx.stroke();
           }
@@ -178,31 +182,42 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
           ctx.fillStyle = color;
           ctx.fill();
 
+          // Reset glow for text
+          ctx.shadowBlur = 0;
+
           // Text Label
           if (label && (globalScale > 1.2 || node.group === 'CRITICAL' || node.group === 'ACCOUNT' || node.group === 'ORG' || node.group === 'IP' || node.group === 'PHONE')) {
-            ctx.font = `900 ${fontSize}px "Arial Black", Impact, sans-serif`;
+            ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillStyle = node.group === 'CRITICAL' ? '#fca5a5' : '#f8fafc';
+            ctx.fillStyle = node.group === 'CRITICAL' ? '#fca5a5' : '#e2e8f0';
             
             // Add a subtle text shadow for readability
-            ctx.shadowColor = 'rgba(0,0,0,0.8)';
-            ctx.shadowBlur = 4;
+            ctx.shadowColor = 'rgba(0,0,0,1)';
+            ctx.shadowBlur = 8;
             ctx.fillText(label, node.x, node.y + node.val + (4/globalScale));
             ctx.shadowBlur = 0; // reset
           }
         }}
-        linkColor={() => 'rgba(148, 163, 184, 0.15)'}
-        linkDirectionalParticles={2}
-        linkDirectionalParticleWidth={1.5}
-        linkDirectionalParticleColor={() => 'rgba(34, 211, 238, 0.7)'}
-        linkDirectionalParticleSpeed={0.005}
+        linkColor={(link: any) => {
+          if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 'rgba(239, 68, 68, 0.25)';
+          if (link.source.group === 'ACCOUNT' || link.target.group === 'ACCOUNT') return 'rgba(250, 204, 21, 0.15)';
+          return 'rgba(34, 211, 238, 0.1)';
+        }}
+        linkDirectionalParticles={(link: any) => (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL' ? 4 : 2)}
+        linkDirectionalParticleWidth={2}
+        linkDirectionalParticleColor={(link: any) => {
+          if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 'rgba(239, 68, 68, 0.9)';
+          if (link.source.group === 'ACCOUNT' || link.target.group === 'ACCOUNT') return 'rgba(250, 204, 21, 0.8)';
+          return 'rgba(34, 211, 238, 0.7)';
+        }}
+        linkDirectionalParticleSpeed={0.008}
         backgroundColor="#020617"
         width={dimensions.width}
         height={dimensions.height}
         enableNodeDrag={!isPreview}
-        enableZoomInteraction={!isPreview}
-        enablePanInteraction={!isPreview}
+        enableZoomInteraction={true} // Enable zoom even in preview for Dossier
+        enablePanInteraction={true}  // Enable pan even in preview for Dossier
         onNodeClick={(node) => !isPreview && setSelectedNode(node)}
         warmupTicks={50}
         cooldownTicks={150}
