@@ -159,28 +159,63 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
           else if (node.group === 'BOT') color = '#1e293b';
           else if (node.group === 'USER') color = '#334155';
 
-          // Glow Effect
+          // Glow Effect for nodes
           ctx.shadowColor = color;
-          ctx.shadowBlur = 15 * (globalScale/2); // Scale glow with zoom
+          ctx.shadowBlur = 10 * (globalScale/2);
 
-          // Blinking effect for CRITICAL / Important nodes
-          if (node.group === 'CRITICAL' || node.group === 'ACCOUNT' || node.group === 'ORG') {
-            const t = Date.now() / 200;
-            const radius = node.val + 2 + Math.abs(Math.sin(t)) * (node.group === 'CRITICAL' ? 6 : 3);
+          // Outer glowing ring
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.val + 4, 0, 2 * Math.PI, false);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.5 / globalScale;
+          ctx.stroke();
+
+          // Second decorative ring (dashed) for important nodes
+          if (node.group === 'CRITICAL' || node.group === 'ORG' || node.group === 'ACCOUNT') {
+            const t = Date.now() / 500;
+            ctx.save();
+            ctx.translate(node.x, node.y);
+            ctx.rotate(t * (node.group === 'CRITICAL' ? 1 : -1));
             ctx.beginPath();
-            ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false);
-            ctx.fillStyle = color === '#ef4444' ? 'rgba(239, 68, 68, 0.15)' : `${color}33`;
-            ctx.fill();
+            ctx.arc(0, 0, node.val + 8, 0, 2 * Math.PI, false);
+            ctx.setLineDash([4, 6]);
             ctx.strokeStyle = color === '#ef4444' ? 'rgba(239, 68, 68, 0.8)' : `${color}99`;
-            ctx.lineWidth = 1.5 / globalScale;
+            ctx.lineWidth = 1 / globalScale;
             ctx.stroke();
+            ctx.restore();
           }
 
-          // Node circle
+          // Inner Node circle (Semi-transparent)
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.val, 0, 2 * Math.PI, false);
-          ctx.fillStyle = color;
+          ctx.fillStyle = `${color}33`; // 20% opacity
           ctx.fill();
+          
+          // Draw Icon inside node
+          ctx.fillStyle = color;
+          ctx.strokeStyle = color;
+          const r = node.val;
+          
+          if (['CRITICAL', 'ACCOUNT', 'USER', 'BOT'].includes(node.group)) {
+            // Person Icon
+            ctx.beginPath(); ctx.arc(node.x, node.y - r*0.2, r*0.25, 0, 2*Math.PI); ctx.fill();
+            ctx.beginPath(); ctx.arc(node.x, node.y + r*0.5, r*0.4, Math.PI, 0); ctx.fill();
+          } else if (node.group === 'ORG') {
+            // Building Icon
+            ctx.fillRect(node.x - r*0.4, node.y - r*0.4, r*0.8, r*0.8);
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(node.x - r*0.2, node.y - r*0.2, r*0.15, r*0.2);
+            ctx.fillRect(node.x + r*0.05, node.y - r*0.2, r*0.15, r*0.2);
+          } else if (node.group === 'PHONE') {
+            // Phone Icon
+            ctx.strokeRect(node.x - r*0.25, node.y - r*0.4, r*0.5, r*0.8);
+            ctx.beginPath(); ctx.arc(node.x, node.y + r*0.2, r*0.08, 0, 2*Math.PI); ctx.fill();
+          } else {
+            // Globe / IP Icon
+            ctx.beginPath(); ctx.arc(node.x, node.y, r*0.5, 0, 2*Math.PI); ctx.stroke();
+            ctx.beginPath(); ctx.ellipse(node.x, node.y, r*0.2, r*0.5, 0, 0, 2*Math.PI); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(node.x - r*0.5, node.y); ctx.lineTo(node.x + r*0.5, node.y); ctx.stroke();
+          }
 
           // Reset glow for text
           ctx.shadowBlur = 0;
@@ -195,23 +230,16 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
             // Add a subtle text shadow for readability
             ctx.shadowColor = 'rgba(0,0,0,1)';
             ctx.shadowBlur = 8;
-            ctx.fillText(label, node.x, node.y + node.val + (4/globalScale));
+            ctx.fillText(label, node.x, node.y + node.val + (8/globalScale));
             ctx.shadowBlur = 0; // reset
           }
         }}
         linkColor={(link: any) => {
-          if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 'rgba(239, 68, 68, 0.25)';
-          if (link.source.group === 'ACCOUNT' || link.target.group === 'ACCOUNT') return 'rgba(250, 204, 21, 0.15)';
-          return 'rgba(34, 211, 238, 0.1)';
+          if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 'rgba(239, 68, 68, 0.8)';
+          if (link.source.group === 'ACCOUNT' || link.target.group === 'ACCOUNT') return 'rgba(250, 204, 21, 0.6)';
+          return 'rgba(34, 211, 238, 0.4)';
         }}
-        linkDirectionalParticles={(link: any) => (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL' ? 4 : 2)}
-        linkDirectionalParticleWidth={2}
-        linkDirectionalParticleColor={(link: any) => {
-          if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 'rgba(239, 68, 68, 0.9)';
-          if (link.source.group === 'ACCOUNT' || link.target.group === 'ACCOUNT') return 'rgba(250, 204, 21, 0.8)';
-          return 'rgba(34, 211, 238, 0.7)';
-        }}
-        linkDirectionalParticleSpeed={0.008}
+        linkWidth={(link: any) => (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL' ? 1.5 : 0.8)}
         backgroundColor="#020617"
         width={dimensions.width}
         height={dimensions.height}
