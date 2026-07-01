@@ -156,16 +156,33 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
           else if (node.group === 'ORG') color = '#10b981';
           else if (node.group === 'LOC' || node.group === 'IP') color = '#a855f7';
           else if (node.group === 'PHONE') color = '#f97316';
-          else if (node.group === 'BOT') color = '#1e293b';
-          else if (node.group === 'USER') color = '#334155';
+          else if (node.group === 'BOT') color = '#0ea5e9'; // bright cyan for mass nodes
+          else if (node.group === 'USER') color = '#38bdf8'; // bright sky for mass nodes
 
-          // Glow Effect for nodes
+          const isMassNode = node.group === 'BOT' || node.group === 'USER';
+
+          if (isMassNode) {
+            // Render mass nodes as tiny glowing stardust points
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 4;
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, 1.2, 0, 2 * Math.PI, false);
+            ctx.fillStyle = `${color}cc`;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            return; // Skip drawing labels and rings for mass nodes
+          }
+
+          // Glow Effect for main nodes
           ctx.shadowColor = color;
           ctx.shadowBlur = 10 * (globalScale/2);
 
+          // Make main nodes visually larger for contrast
+          const r = node.val * 1.5;
+
           // Outer glowing ring
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.val + 4, 0, 2 * Math.PI, false);
+          ctx.arc(node.x, node.y, r + 4, 0, 2 * Math.PI, false);
           ctx.strokeStyle = color;
           ctx.lineWidth = 1.5 / globalScale;
           ctx.stroke();
@@ -177,7 +194,7 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
             ctx.translate(node.x, node.y);
             ctx.rotate(t * (node.group === 'CRITICAL' ? 1 : -1));
             ctx.beginPath();
-            ctx.arc(0, 0, node.val + 8, 0, 2 * Math.PI, false);
+            ctx.arc(0, 0, r + 10, 0, 2 * Math.PI, false);
             ctx.setLineDash([4, 6]);
             ctx.strokeStyle = color === '#ef4444' ? 'rgba(239, 68, 68, 0.8)' : `${color}99`;
             ctx.lineWidth = 1 / globalScale;
@@ -187,16 +204,15 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
 
           // Inner Node circle (Semi-transparent)
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.val, 0, 2 * Math.PI, false);
+          ctx.arc(node.x, node.y, r, 0, 2 * Math.PI, false);
           ctx.fillStyle = `${color}33`; // 20% opacity
           ctx.fill();
           
           // Draw Icon inside node
           ctx.fillStyle = color;
           ctx.strokeStyle = color;
-          const r = node.val;
           
-          if (['CRITICAL', 'ACCOUNT', 'USER', 'BOT'].includes(node.group)) {
+          if (['CRITICAL', 'ACCOUNT'].includes(node.group)) {
             // Person Icon
             ctx.beginPath(); ctx.arc(node.x, node.y - r*0.2, r*0.25, 0, 2*Math.PI); ctx.fill();
             ctx.beginPath(); ctx.arc(node.x, node.y + r*0.5, r*0.4, Math.PI, 0); ctx.fill();
@@ -230,16 +246,23 @@ export default function GraphVisualizer({ isPreview = false }: Props) {
             // Add a subtle text shadow for readability
             ctx.shadowColor = 'rgba(0,0,0,1)';
             ctx.shadowBlur = 8;
-            ctx.fillText(label, node.x, node.y + node.val + (8/globalScale));
+            ctx.fillText(label, node.x, node.y + r + (8/globalScale));
             ctx.shadowBlur = 0; // reset
           }
         }}
         linkColor={(link: any) => {
+          const isMassLink = link.target.group === 'BOT' || link.target.group === 'USER' || link.source.group === 'BOT' || link.source.group === 'USER';
+          if (isMassLink) return 'rgba(14, 165, 233, 0.08)'; // extremely faint cyan for bot/user lines
           if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 'rgba(239, 68, 68, 0.8)';
           if (link.source.group === 'ACCOUNT' || link.target.group === 'ACCOUNT') return 'rgba(250, 204, 21, 0.6)';
           return 'rgba(34, 211, 238, 0.4)';
         }}
-        linkWidth={(link: any) => (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL' ? 1.5 : 0.8)}
+        linkWidth={(link: any) => {
+          const isMassLink = link.target.group === 'BOT' || link.target.group === 'USER' || link.source.group === 'BOT' || link.source.group === 'USER';
+          if (isMassLink) return 0.2; // very thin threads
+          if (link.source.group === 'CRITICAL' || link.target.group === 'CRITICAL') return 1.5;
+          return 0.8;
+        }}
         backgroundColor="#020617"
         width={dimensions.width}
         height={dimensions.height}
