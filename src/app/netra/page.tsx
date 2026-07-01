@@ -33,9 +33,7 @@ export default function NetraPage() {
 
   return (
     <div className="flex flex-col gap-6 relative h-full w-full">
-      
-      {/* Telemetry Panel Overlay (Top Secret Dev Mode) */}
-      <TechTelemetryPanel isOpen={showTelemetry} onClose={() => setShowTelemetry(false)} />
+
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
