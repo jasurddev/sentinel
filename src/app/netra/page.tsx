@@ -1,9 +1,12 @@
 'use client'
 
-import { ScanFace, Users, Fingerprint, MapPin, Search, Activity, FileText, Download, X, ExternalLink, Camera, BrainCircuit } from "lucide-react"
+import { ScanFace, Users, Fingerprint, MapPin, Search, Activity, FileText, Download, X, ExternalLink, Camera, BrainCircuit, Network } from "lucide-react"
 import { useState } from "react"
 import { TechTelemetryPanel } from "@/components/features/TechTelemetryPanel"
 import { triggerMockDownload } from "@/lib/downloadMock"
+import dynamic from "next/dynamic"
+
+const GraphVisualizer = dynamic(() => import("@/components/features/GraphVisualizer"), { ssr: false })
 
 export default function NetraPage() {
   const [showTelemetry, setShowTelemetry] = useState(false)
@@ -409,6 +412,24 @@ export default function NetraPage() {
                 </div>
               </div>
             </div>
+
+            {/* KNOWLEDGE GRAPH VISUALIZER (Full Width Bottom) */}
+            <div className="border-t border-white/[0.05] bg-[#020617] mt-4">
+              <div className="p-4 border-b border-white/[0.02] flex items-center justify-between">
+                <h3 className="text-xs font-sans font-bold text-zinc-300 flex items-center gap-2">
+                  <Network className="w-4 h-4 text-cyan-500" />
+                  KNOWLEDGE GRAPH 
+                  <span className="text-[9px] text-cyan-500 border border-cyan-500/30 bg-cyan-950/30 px-1.5 py-0.5 rounded-sm ml-2">SNA_ACTIVE</span>
+                </h3>
+                <p className="text-[9px] font-mono text-zinc-500">ZOOM & PAN ENABLED</p>
+              </div>
+              <div className="h-[350px] w-full relative overflow-hidden">
+                <GraphVisualizer isPreview={true} />
+                {/* Overlay Vignette to blend edges */}
+                <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_50px_rgba(4,4,5,1)]"></div>
+              </div>
+            </div>
+            
           </div>
         </div>
       )}
