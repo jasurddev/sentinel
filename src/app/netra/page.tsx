@@ -1,6 +1,6 @@
 'use client'
 
-import { ScanFace, Users, Fingerprint, MapPin, Search, Activity, FileText, Download, X, ExternalLink, Camera } from "lucide-react"
+import { ScanFace, Users, Fingerprint, MapPin, Search, Activity, FileText, Download, X, ExternalLink, Camera, BrainCircuit } from "lucide-react"
 import { useState } from "react"
 import { TechTelemetryPanel } from "@/components/features/TechTelemetryPanel"
 import { triggerMockDownload } from "@/lib/downloadMock"
@@ -23,65 +23,58 @@ export default function NetraPage() {
       biometric_match: 98.7,
       identity: {
         nik: "3273151204990003",
-        name: "Ahmad Mulyadi",
-        dob: "1999-04-12",
-        address: "Jl. Dago Asri No. 12, Coblong, Bandung",
-        blood_type: "O",
-        occupation: "Mahasiswa"
-      },
-      digital_footprint: [
-        { platform: "Twitter/X", handle: "@ahmad_rebel", id: "10923810238" },
-        { platform: "Telegram", handle: "@amulyadi", id: "59123891" }
-      ],
-      last_seen: {
-        timestamp: new Date().toISOString(),
-        location: "Bandung, ID",
-        lat: -6.8915,
-        lng: 107.6107,
-        source: "CCTV_NODE_DAGO_4"
+        name: "AHMAD MULYADI",
+        dob: "12-04-1999"
       }
     }, null, 2)
-
+    
     triggerMockDownload(`DOSSIER_${id}_${Date.now()}.json`, mockData, "application/json")
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Header */}
-      <div className="flex justify-between items-end">
+    <div className="flex flex-col gap-6 relative h-full w-full">
+      
+      {/* Telemetry Panel Overlay (Top Secret Dev Mode) */}
+      <TechTelemetryPanel isOpen={showTelemetry} onClose={() => setShowTelemetry(false)} />
+
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold font-sans tracking-tight text-zinc-100 flex items-center gap-3">
-            <ScanFace className="w-7 h-7 text-cyan-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]" /> NETRA_PROFILING
+          <h1 className="text-2xl font-sans font-bold text-zinc-100 flex items-center gap-3 tracking-tight">
+            <ScanFace className="w-6 h-6 text-cyan-400" />
+            NETRA_PROFILING
           </h1>
-          <p className="text-zinc-500 mt-1 text-sm font-sans">Identity resolution engine — Face Recognition, NIK Lookup, and Location Tracking.</p>
+          <p className="text-zinc-500 font-mono text-xs mt-1 max-w-2xl">
+            Identity resolution engine — Face Recognition, NIK Lookup, and Location Tracking.
+          </p>
         </div>
-        <button onClick={() => setShowTelemetry(true)} className="bg-zinc-950/50 hover:bg-zinc-900 text-xs font-mono text-zinc-400 hover:text-cyan-400 border border-white/[0.05] hover:border-cyan-500/30 px-3 py-1.5 rounded-sm transition-colors flex items-center gap-2 shadow-sm">
-          <Activity className="w-4 h-4 text-cyan-500" /> SYS_DIAGNOSTICS
+
+        <button 
+          onClick={() => setShowTelemetry(true)}
+          className="px-3 py-1.5 bg-zinc-900 border border-zinc-700 hover:border-cyan-500 rounded-sm flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-cyan-400 transition-colors"
+        >
+          <Activity className="w-3 h-3" /> SYS_TELEMETRY
         </button>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="glass-card rounded-md p-4 flex items-center gap-4">
-          <div className="p-3 bg-cyan-500/5 rounded-sm micro-border"><Users className="w-5 h-5 text-cyan-500" /></div>
-          <div>
-            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">FACES_INDEXED</p>
-            <p className="text-2xl font-bold font-mono text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">2.4M</p>
-          </div>
+        <div className="glass-panel p-4 flex flex-col justify-between">
+          <span className="text-zinc-500 text-[10px] font-sans font-semibold tracking-widest uppercase mb-1 flex items-center gap-2">
+            <Users className="w-3 h-3 text-cyan-500"/> FACES_INDEXED
+          </span>
+          <span className="text-3xl font-mono text-zinc-200">2.4<span className="text-cyan-500 text-lg">M</span></span>
         </div>
-        <div className="glass-card rounded-md p-4 flex items-center gap-4">
-          <div className="p-3 bg-emerald-500/5 rounded-sm micro-border"><Fingerprint className="w-5 h-5 text-emerald-500" /></div>
-          <div>
-            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">NIK_MATCHED</p>
-            <p className="text-2xl font-bold font-mono text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">847</p>
-          </div>
+        <div className="glass-panel p-4 flex flex-col justify-between">
+          <span className="text-zinc-500 text-[10px] font-sans font-semibold tracking-widest uppercase mb-1 flex items-center gap-2">
+            <Fingerprint className="w-3 h-3 text-emerald-500"/> NIK_MATCHED
+          </span>
+          <span className="text-3xl font-mono text-zinc-200">847</span>
         </div>
-        <div className="glass-card rounded-md p-4 flex items-center gap-4">
-          <div className="p-3 bg-yellow-500/5 rounded-sm micro-border"><MapPin className="w-5 h-5 text-yellow-500" /></div>
-          <div>
-            <p className="text-[10px] font-sans font-semibold tracking-widest text-zinc-500 uppercase">ACTIVE_TRACES</p>
-            <p className="text-2xl font-bold font-mono text-zinc-200 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">23</p>
-          </div>
+        <div className="glass-panel p-4 flex flex-col justify-between border-l-2 border-l-yellow-500/50">
+          <span className="text-zinc-500 text-[10px] font-sans font-semibold tracking-widest uppercase mb-1 flex items-center gap-2">
+            <MapPin className="w-3 h-3 text-yellow-500"/> ACTIVE_TRACES
+          </span>
+          <span className="text-3xl font-mono text-zinc-200">23</span>
         </div>
       </div>
 
@@ -140,66 +133,58 @@ export default function NetraPage() {
         </div>
 
       {/* Identified Profiles Section */}
-      <div className="mt-2">
+      <div className="mt-2 xl:col-span-3">
         <h2 className="text-sm font-sans font-semibold text-zinc-300 mb-4 flex items-center gap-2">
           <Users className="w-4 h-4 text-cyan-500" /> RECENT MATCHES
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {profiles.map((profile) => (
-            <div key={profile.id} className={`glass-card rounded-md p-4 flex flex-col gap-4 transition-all ${
-              profile.threat === 'CRITICAL' ? 'border-t-2 border-t-red-500' :
-              profile.threat === 'HIGH' ? 'border-t-2 border-t-yellow-500' :
-              'border-t-2 border-t-zinc-500'
-            }`}>
+          {profiles.map((profile, i) => (
+            <div key={i} className={`glass-card p-4 flex flex-col gap-4 border-l-4 ${profile.status === 'IDENTIFIED' ? 'border-l-red-500' : profile.status === 'TRACKING' ? 'border-l-yellow-500' : 'border-l-slate-500'}`}>
               
-              <div className="flex gap-3">
-                {/* Silhouette */}
-                <div className="w-12 h-12 rounded-sm bg-zinc-950 border border-white/[0.05] flex items-center justify-center shrink-0 overflow-hidden relative shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
-                  <ScanFace className="w-6 h-6 text-zinc-700" />
-                  {profile.status === 'IDENTIFIED' && <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay"></div>}
-                </div>
-                
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-start mb-1">
-                    <h3 className="font-mono font-bold text-zinc-200 text-sm truncate">{profile.id}</h3>
+              <div className="flex justify-between items-start">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-zinc-800 border border-white/[0.1] flex items-center justify-center overflow-hidden">
+                    {profile.status === 'IDENTIFIED' ? (
+                       <img src={`https://randomuser.me/api/portraits/men/${32 + i}.jpg`} alt="target" className="w-full h-full object-cover filter grayscale contrast-125" />
+                    ) : (
+                      <ScanFace className="w-5 h-5 text-zinc-500" />
+                    )}
                   </div>
-                  <span className={`inline-block text-[9px] font-sans font-semibold tracking-widest px-1.5 py-0.5 rounded-sm border ${
-                    profile.status === 'IDENTIFIED' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
-                    profile.status === 'TRACKING' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' :
-                    'bg-zinc-800 text-zinc-400 border-white/[0.05]'
-                  }`}>
-                    {profile.status}
-                  </span>
+                  <div>
+                    <h3 className="font-mono font-bold text-zinc-200 text-sm">{profile.id}</h3>
+                    <p className="text-[10px] font-sans text-zinc-500 flex items-center gap-1 mt-0.5">
+                      <Activity className="w-3 h-3 text-cyan-500" /> {profile.match}
+                    </p>
+                  </div>
                 </div>
+                <span className={`text-[9px] font-mono px-2 py-0.5 rounded-sm bg-black/50 border ${profile.status === 'IDENTIFIED' ? 'text-red-400 border-red-900/50' : profile.status === 'TRACKING' ? 'text-yellow-400 border-yellow-900/50' : 'text-slate-400 border-slate-800'}`}>
+                  {profile.status}
+                </span>
               </div>
 
-              <div className="space-y-1">
-                <div className="flex justify-between text-[10px] font-sans">
-                  <span className="text-zinc-500">Match Acc:</span>
-                  <span className="font-mono text-emerald-400">{profile.match}</span>
-                </div>
-                <div className="flex justify-between text-[10px] font-sans">
-                  <span className="text-zinc-500">Loc:</span>
-                  <span className="truncate ml-2 text-zinc-300">{profile.location.split(',')[0]}</span>
-                </div>
+              <div className="text-xs font-sans text-zinc-400 flex items-center gap-2 bg-black/30 p-2 rounded-sm border border-white/[0.02]">
+                <MapPin className="w-3 h-3 text-zinc-500" />
+                <span className="truncate">{profile.location}</span>
               </div>
 
-              {/* Action */}
-              <button 
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <button 
                 onClick={() => setActiveDossier(profile.id)}
-                className="w-full mt-1 py-1.5 bg-zinc-950 hover:bg-zinc-900 text-[10px] font-mono text-cyan-500 border border-white/[0.03] hover:border-cyan-500/30 rounded-sm transition-colors flex justify-center items-center gap-2"
-              >
+                className="w-full py-1.5 text-[10px] font-mono bg-cyan-950/30 hover:bg-cyan-900 text-cyan-400 border border-cyan-900 rounded-sm transition-colors flex items-center justify-center gap-1">
                 <FileText className="w-3 h-3" /> DOSSIER
-              </button>
+                </button>
+                <button className="w-full py-1.5 text-[10px] font-mono bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 rounded-sm transition-colors flex items-center justify-center gap-1">
+                  <Camera className="w-3 h-3" /> SNAPSHOT
+                </button>
+              </div>
 
             </div>
           ))}
         </div>
       </div>
-
+        
         {/* Side Panel: Engine Status */}
-        <div className="glass-card rounded-md flex flex-col h-fit">
+        <div className="glass-card rounded-md flex flex-col h-fit xl:-mt-[430px] xl:col-start-3">
           <div className="p-4 border-b border-white/[0.05] bg-black/20">
             <h2 className="font-semibold text-zinc-200 font-sans text-sm tracking-wide">RECOGNITION ENGINE</h2>
           </div>
@@ -230,7 +215,7 @@ export default function NetraPage() {
       {activeDossier && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setActiveDossier(null)}></div>
-          <div className="relative bg-[#040405] border border-white/[0.1] rounded-md w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
+          <div className="relative bg-[#040405] border border-white/[0.1] rounded-md w-full max-w-6xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
             
             <div className="p-5 border-b border-white/[0.05] flex justify-between items-center bg-cyan-950/10">
               <div className="flex items-center gap-3">
@@ -238,12 +223,19 @@ export default function NetraPage() {
                 <h2 className="font-mono font-bold text-zinc-100">TARGET_DOSSIER // {activeDossier}</h2>
                 <span className="ml-4 px-2 py-0.5 text-[9px] font-sans tracking-widest bg-red-500/10 text-red-500 border border-red-500/20 rounded-sm uppercase">RESTRICTED_ACCESS</span>
               </div>
-              <button onClick={() => setActiveDossier(null)} className="text-zinc-500 hover:text-white"><X className="w-4 h-4" /></button>
+              
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-cyan-500 bg-cyan-950/20 px-3 py-1 rounded-sm border border-cyan-900/50">
+                  <BrainCircuit className="w-3 h-3" />
+                  <span className="text-[9px] font-mono tracking-widest uppercase">AI_FUSION_SUMMARY</span>
+                </div>
+                <button onClick={() => setActiveDossier(null)} className="text-zinc-500 hover:text-white"><X className="w-4 h-4" /></button>
+              </div>
             </div>
 
-            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 grid grid-cols-1 md:grid-cols-4 gap-8">
               
-              {/* Photo & Match */}
+              {/* Photo & Match (Left Column) */}
               <div className="flex flex-col gap-4">
                 <div className="aspect-square bg-zinc-950 border border-white/[0.05] rounded-sm relative overflow-hidden flex items-center justify-center shadow-inner">
                   <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-10"></div>
@@ -341,6 +333,45 @@ export default function NetraPage() {
                   </div>
                 </div>
 
+              </div>
+
+              {/* AI Fusion Summary (Right Column) */}
+              <div className="flex flex-col gap-4 md:border-l border-white/[0.05] md:pl-8">
+                <h3 className="text-[10px] font-sans font-semibold text-zinc-500 flex items-center gap-2 border-b border-white/[0.05] pb-2 uppercase tracking-widest">
+                  <BrainCircuit className="w-3 h-3 text-cyan-500" /> AI FUSION SUMMARY
+                </h3>
+                
+                <div className="flex flex-col gap-3 mt-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-400 font-sans uppercase">Identity Confidence</span>
+                    <span className="text-xs font-mono text-cyan-400 font-bold">99.4%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-400 font-sans uppercase">Threat Score</span>
+                    <span className="text-xs font-mono text-red-500 font-bold">82/100</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-400 font-sans uppercase">Evidence</span>
+                    <span className="text-xs font-mono text-zinc-200 font-bold">17</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-400 font-sans uppercase">Connected Entities</span>
+                    <span className="text-xs font-mono text-zinc-200 font-bold">46</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-400 font-sans uppercase">Related Cases</span>
+                    <span className="text-xs font-mono text-zinc-200 font-bold">3</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-400 font-sans uppercase">Last Seen</span>
+                    <span className="text-[9px] font-mono text-yellow-500">12 menit lalu</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 p-3 bg-red-950/20 border border-red-500/20 rounded-sm">
+                  <p className="text-[9px] text-zinc-500 font-sans uppercase mb-1">AI Recommendation</p>
+                  <p className="text-xs text-red-400 font-mono font-bold tracking-widest">OBSERVE / HIGH_RISK</p>
+                </div>
               </div>
             </div>
           </div>
