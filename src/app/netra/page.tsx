@@ -8,6 +8,7 @@ import { triggerMockDownload } from "@/lib/downloadMock"
 export default function NetraPage() {
   const [showTelemetry, setShowTelemetry] = useState(false)
   const [activeDossier, setActiveDossier] = useState<string | null>(null)
+  const [showSnapshot, setShowSnapshot] = useState<string | null>(null)
 
   const profiles = [
     { id: "TANGO-01", match: "98.7%", status: "IDENTIFIED", location: "Bandung, ID", threat: "CRITICAL" },
@@ -130,6 +131,33 @@ export default function NetraPage() {
           </div>
         </div>
 
+        {/* Side Panel: Engine Status */}
+        <div className="glass-card rounded-md flex flex-col h-fit">
+          <div className="p-4 border-b border-white/[0.05] bg-black/20">
+            <h2 className="font-semibold text-zinc-200 font-sans text-sm tracking-wide">RECOGNITION ENGINE</h2>
+          </div>
+          <div className="p-5 flex flex-col gap-3">
+            <div className="flex justify-between items-center p-3 bg-black/40 border border-white/[0.03] rounded-sm">
+              <span className="text-xs font-sans text-zinc-400">Face Match Rate</span>
+              <span className="font-mono text-cyan-400 font-bold drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">97.2%</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-black/40 border border-white/[0.03] rounded-sm">
+              <span className="text-xs font-sans text-zinc-400">NIK DB Sync</span>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981]"></span>
+                <span className="font-mono text-emerald-400 text-[10px] tracking-widest">CONNECTED</span>
+              </div>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-black/40 border border-white/[0.03] rounded-sm">
+              <span className="text-xs font-sans text-zinc-400">CCTV Feeds</span>
+              <span className="font-mono text-yellow-500 text-[10px] tracking-widest">14 ACTIVE</span>
+            </div>
+            <button className="mt-3 w-full py-2 bg-black hover:bg-zinc-900 text-cyan-500 text-xs font-mono border border-cyan-900 hover:border-cyan-700 rounded-sm transition-colors flex items-center justify-center gap-2">
+              <Search className="w-3 h-3" /> MANUAL_LOOKUP
+            </button>
+          </div>
+        </div>
+
       {/* Identified Profiles Section */}
       <div className="mt-2 xl:col-span-3">
         <h2 className="text-sm font-sans font-semibold text-zinc-300 mb-4 flex items-center gap-2">
@@ -171,7 +199,9 @@ export default function NetraPage() {
                 className="w-full py-1.5 text-[10px] font-mono bg-cyan-950/30 hover:bg-cyan-900 text-cyan-400 border border-cyan-900 rounded-sm transition-colors flex items-center justify-center gap-1">
                 <FileText className="w-3 h-3" /> DOSSIER
                 </button>
-                <button className="w-full py-1.5 text-[10px] font-mono bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 rounded-sm transition-colors flex items-center justify-center gap-1">
+                <button 
+                  onClick={() => setShowSnapshot(profile.id)}
+                  className="w-full py-1.5 text-[10px] font-mono bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 rounded-sm transition-colors flex items-center justify-center gap-1">
                   <Camera className="w-3 h-3" /> SNAPSHOT
                 </button>
               </div>
@@ -181,33 +211,40 @@ export default function NetraPage() {
         </div>
       </div>
         
-        {/* Side Panel: Engine Status */}
-        <div className="glass-card rounded-md flex flex-col h-fit xl:-mt-[430px] xl:col-start-3">
-          <div className="p-4 border-b border-white/[0.05] bg-black/20">
-            <h2 className="font-semibold text-zinc-200 font-sans text-sm tracking-wide">RECOGNITION ENGINE</h2>
-          </div>
-          <div className="p-5 flex flex-col gap-3">
-            <div className="flex justify-between items-center p-3 bg-black/40 border border-white/[0.03] rounded-sm">
-              <span className="text-xs font-sans text-zinc-400">Face Match Rate</span>
-              <span className="font-mono text-cyan-400 font-bold drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">97.2%</span>
+
+      </div>
+
+      {/* SNAPSHOT DUMMY MODAL */}
+      {showSnapshot && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setShowSnapshot(null)}></div>
+          <div className="relative bg-[#040405] border border-white/[0.1] rounded-md w-full max-w-md shadow-2xl flex flex-col animate-in zoom-in-95 duration-200">
+            <div className="p-4 border-b border-white/[0.05] flex justify-between items-center bg-zinc-900/50">
+              <div className="flex items-center gap-2 text-zinc-200">
+                <Camera className="w-4 h-4 text-cyan-500" />
+                <h2 className="font-mono font-bold text-sm">SNAPSHOT // {showSnapshot}</h2>
+              </div>
+              <button onClick={() => setShowSnapshot(null)} className="text-zinc-500 hover:text-white"><X className="w-4 h-4" /></button>
             </div>
-            <div className="flex justify-between items-center p-3 bg-black/40 border border-white/[0.03] rounded-sm">
-              <span className="text-xs font-sans text-zinc-400">NIK DB Sync</span>
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981]"></span>
-                <span className="font-mono text-emerald-400 text-[10px] tracking-widest">CONNECTED</span>
+            <div className="p-4">
+              <div className="aspect-video bg-zinc-950 border border-white/[0.05] rounded-sm flex items-center justify-center relative overflow-hidden">
+                 <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                 <img src="/demo.mp4" className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 opacity-30" alt="Snapshot Frame" />
+                 <div className="z-10 flex flex-col items-center">
+                    <ScanFace className="w-8 h-8 text-cyan-500 mb-2" />
+                    <p className="text-cyan-400 font-mono text-xs uppercase">Capturing Frame Sequence...</p>
+                 </div>
+                 {/* Bounding Box Mock */}
+                 <div className="absolute top-[20%] left-[40%] w-16 h-20 border-[1.5px] border-cyan-400 z-10 animate-pulse bg-cyan-500/10"></div>
+              </div>
+              <div className="mt-4 flex justify-between items-center bg-black/40 p-3 rounded-sm border border-white/[0.02]">
+                 <span className="text-xs text-zinc-500 font-sans">Timestamp</span>
+                 <span className="text-xs text-zinc-300 font-mono">{new Date().toISOString()}</span>
               </div>
             </div>
-            <div className="flex justify-between items-center p-3 bg-black/40 border border-white/[0.03] rounded-sm">
-              <span className="text-xs font-sans text-zinc-400">CCTV Feeds</span>
-              <span className="font-mono text-yellow-500 text-[10px] tracking-widest">14 ACTIVE</span>
-            </div>
-            <button className="mt-3 w-full py-2 bg-black hover:bg-zinc-900 text-cyan-500 text-xs font-mono border border-cyan-900 hover:border-cyan-700 rounded-sm transition-colors flex items-center justify-center gap-2">
-              <Search className="w-3 h-3" /> MANUAL_LOOKUP
-            </button>
           </div>
         </div>
-      </div>
+      )}
 
       {/* TARGET DOSSIER MODAL */}
       {activeDossier && (
